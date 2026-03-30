@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Training | AI Promotion Committee</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "surface-container-lowest": "#ffffff",
+                "primary": "#954928",
+                "on-tertiary-fixed-variant": "#00504c",
+                "surface-container": "#f2ede9",
+                "on-secondary-fixed-variant": "#334573",
+                "outline-variant": "#dac1b8",
+                "surface-tint": "#954928",
+                "on-surface-variant": "#54433c",
+                "surface-container-high": "#ece7e3",
+                "primary-container": "#f0916a",
+                "on-secondary-container": "#415381",
+                "surface-bright": "#fdf8f4",
+                "inverse-primary": "#ffb598",
+                "outline": "#87736b",
+                "on-primary-fixed": "#370e00",
+                "surface-dim": "#ded9d5",
+                "tertiary-fixed-dim": "#69d8d1",
+                "surface": "#fdf8f4",
+                "inverse-surface": "#32302e",
+                "background": "#fdf8f4",
+                "on-error": "#ffffff",
+                "on-secondary": "#ffffff",
+                "on-tertiary-container": "#004643",
+                "on-secondary-fixed": "#021945",
+                "on-surface": "#1d1b19",
+                "on-primary-container": "#6c2a0a",
+                "surface-variant": "#e6e2de",
+                "surface-container-low": "#f8f3ef",
+                "on-tertiary-fixed": "#00201e",
+                "inverse-on-surface": "#f5f0ec",
+                "tertiary-fixed": "#87f5ed",
+                "on-primary-fixed-variant": "#773213",
+                "error": "#ba1a1a",
+                "tertiary": "#006a65",
+                "secondary-fixed-dim": "#b4c5fb",
+                "error-container": "#ffdad6",
+                "on-primary": "#ffffff",
+                "primary-fixed": "#ffdbce",
+                "on-error-container": "#93000a",
+                "surface-container-highest": "#e6e2de",
+                "primary-fixed-dim": "#ffb598",
+                "tertiary-container": "#47bab3",
+                "secondary-fixed": "#dae2ff",
+                "secondary": "#4c5d8c",
+                "secondary-container": "#b6c8fe",
+                "on-tertiary": "#ffffff",
+                "on-background": "#1d1b19"
+              },
+              fontFamily: {
+                "headline": ["Plus Jakarta Sans", "Nunito", "sans-serif"],
+                "body": ["Nunito", "sans-serif"],
+                "label": ["Plus Jakarta Sans", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Nunito', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .text-soft-navy { color: #2C3E6B; }
+        .bg-peach-orange { background-color: #F0916A; }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- TopNavBar Shell -->
+<nav class="fixed top-0 w-full z-50 bg-[#FDF8F4]/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-[0_12px_24px_rgba(44,62,107,0.06)]">
+<div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-black text-[#2C3E6B] dark:text-[#FDF8F4] font-['Plus_Jakarta_Sans'] tracking-tight">
+                AI Promotion Committee
+            </div>
+<div class="hidden md:flex items-center gap-8 font-['Plus_Jakarta_Sans'] font-bold tracking-tight">
+<a class="text-[#415381] dark:text-slate-400 hover:text-[#2C3E6B] hover:scale-[1.02] transition-transform duration-200 cursor-pointer active:scale-95" href="index.html">Dashboard</a>
+<a class="text-[#415381] dark:text-slate-400 hover:text-[#2C3E6B] hover:scale-[1.02] transition-transform duration-200 cursor-pointer active:scale-95" href="member.html">Members</a>
+<a class="text-[#415381] dark:text-slate-400 hover:text-[#2C3E6B] hover:scale-[1.02] transition-transform duration-200 cursor-pointer active:scale-95" href="archive.html">Archive</a>
+<a class="text-[#954928] dark:text-[#F0916A] border-b-2 border-[#954928] pb-1 hover:scale-[1.02] transition-transform duration-200 cursor-pointer active:scale-95" href="training.html">Training</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="material-symbols-outlined text-[#415381] cursor-pointer hover:scale-[1.02] transition-transform duration-200">notifications</div>
+<div class="material-symbols-outlined text-[#415381] cursor-pointer hover:scale-[1.02] transition-transform duration-200">settings</div>
+<img alt="User avatar" class="w-10 h-10 rounded-full border-2 border-surface-container-high object-cover" data-alt="professional portrait of a creative director in a minimalist studio with warm sunlight filtering through a window" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZkP1pNA3vI7HsDYOoGleCaS864LiNJhgCSD2EwN2p39gDnYDlETMNb2sqgwpqndWzox8E7RFnojQ2TH63phE2SWzBn6m4Xfp4-rEDgtBa4k4T_uy9md4jTybT4vS7MOUYyK0Cu55pXhEf4gxZQqyWmNrxPF8bwVXMxHTxLFpiqZjnqWnwICgHb8BV12VlA59FiLLiGPBwATvlD6QGLu1rCxlxoPVzPs6G0wtSU8Vbi17rMrkpYRO7IIoAnMjnPr_h5sDPEClvYF7v"/>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-8 max-w-7xl mx-auto">
+<!-- Curator Header Section -->
+<header class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+<div class="max-w-2xl">
+<h1 class="text-6xl font-extrabold text-[#2C3E6B] leading-tight mb-4 tracking-tight">
+                    Training
+                </h1>
+<p class="text-xl text-on-secondary-container opacity-80 font-medium">
+                    AIスキルを磨いて、先回りの提案力を高めよう
+                </p>
+</div>
+<div class="hidden lg:block w-32 h-32 bg-primary-container rounded-lg rotate-12 -mb-8 shadow-xl overflow-hidden">
+<img alt="Decorative AI" class="w-full h-full object-cover" data-alt="abstract glowing neural network nodes and connections in warm orange and soft navy tones against a clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3EWWSikb0vTxYwkrbIgyE35b93P3Dhl-dfmQyC5VkyiJlr7BlAX-vfqsL3aNbPi8VgpHi9gxd-dQGr3NX2aCVu_0tLJvfQ65kihtaoriiN_hwFSvPFUTxxDAM0BmW2PgSmVZI5Sc79DE_0dAKYQen0QXyeLyy8C0lPtBXNlobtbowoLGiNLzYOG5ENmUDBGOSfQRQHzv3gKnUIU10WkMJj1ZkCVa6WiTS-6wbUccD5VyPnuMkfSFJ-Bs-cMNJYwH3Q0iHG75-D1I2"/>
+</div>
+</header>
+<!-- Main Hero Card: AI Time Attack -->
+<section class="mb-16">
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-xl p-12 shadow-[0_12px_24px_rgba(44,62,107,0.06)] flex flex-col lg:flex-row items-center gap-12 group transition-all duration-500 hover:shadow-2xl">
+<!-- Background Accent -->
+<div class="absolute top-0 right-0 w-1/2 h-full bg-surface-container-low -skew-x-12 translate-x-1/4 pointer-events-none transition-transform group-hover:translate-x-1/3 duration-700"></div>
+<div class="relative z-10 lg:w-3/5">
+<span class="inline-block px-4 py-1 bg-primary/10 text-primary font-bold text-xs tracking-widest uppercase mb-6 rounded-full">New Training Mode</span>
+<h2 class="text-4xl font-extrabold text-[#2C3E6B] mb-4">AIタイムアタック — Knock Rally</h2>
+<p class="text-lg text-on-secondary-container mb-8 leading-relaxed max-w-md">
+                        制限時間内にAIを使って課題をこなすタイムアタック形式。瞬発力と精度の高いプロンプト力を鍛えます。
+                    </p>
+<div class="flex items-center gap-4">
+<button class="bg-gradient-to-br from-[#954928] to-[#F0916A] text-white px-8 py-4 rounded-full font-bold text-lg hover:scale-[1.02] transition-transform duration-200 active:scale-95 shadow-lg">
+                            トレーニングを開始する
+                        </button>
+</div>
+</div>
+<div class="relative z-10 lg:w-2/5 flex flex-col gap-6 w-full">
+<div class="bg-surface-container rounded-lg p-6 flex justify-between items-center transform transition-all group-hover:-translate-y-1">
+<div>
+<p class="text-sm font-bold uppercase tracking-wider text-outline mb-1">Personal Best</p>
+<p class="text-3xl font-black text-primary">02:45 <span class="text-sm font-medium">sec</span></p>
+</div>
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="military_tech">military_tech</span>
+</div>
+<div class="bg-surface-container rounded-lg p-6 flex justify-between items-center transform transition-all group-hover:-translate-y-1 delay-75">
+<div>
+<p class="text-sm font-bold uppercase tracking-wider text-outline mb-1">Current Score</p>
+<p class="text-3xl font-black text-secondary">A+ <span class="text-sm font-medium">Rank</span></p>
+</div>
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="trending_up">trending_up</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Training Catalog Grid -->
+<section>
+<div class="flex justify-between items-center mb-10">
+<h3 class="text-2xl font-bold text-[#2C3E6B]">Training Catalog</h3>
+<div class="flex gap-2">
+<span class="px-4 py-2 bg-surface-container-high rounded-full text-sm font-semibold text-on-secondary-container cursor-pointer hover:bg-surface-container duration-200">All Modules</span>
+<span class="px-4 py-2 text-sm font-semibold text-outline hover:text-primary cursor-pointer duration-200">Recommended</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_12px_24px_rgba(44,62,107,0.06)] hover:scale-[1.02] transition-transform duration-300 group">
+<div class="w-full h-48 bg-surface-container-low rounded-lg mb-6 overflow-hidden">
+<img alt="Prompt Basics" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="conceptual photo of bright glowing organic shapes representing ideas emerging from a soft cream background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAszoE7TGUQ44olrgf3b93q98MpFWNwSp-6fKgohKHOs_VPJ1JgrS7V0zUg5QMb6q6Dv2hk-OrPT9lm3BX12GqaElmQ70nPlrIOZG5jJD41vKC6BUP0BiNPwxW1qQedToF2ieWUDHCzZ0wX390capt7Zn03HJskjHQT8R9UJGUAXWjb3-5RdObQi4OBLcBGnTeQ7FEI4G55D_4bBBL_hE0TnK_ZMV5zxjCX95ncmIbZIhdbBevA0TDQ1WRrAFzTQWmBAAWVf9ouccD-"/>
+</div>
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-green-100 text-green-700 text-[10px] font-bold uppercase tracking-widest rounded-full">Beginner</span>
+<div class="flex items-center text-primary">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-xs font-bold">Completed</span>
+</div>
+</div>
+<h4 class="text-xl font-bold text-[#2C3E6B] mb-2">プロンプト基礎</h4>
+<div class="flex items-center gap-4 text-sm text-outline font-medium">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="schedule">schedule</span> 15 mins
+                        </span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_12px_24px_rgba(44,62,107,0.06)] hover:scale-[1.02] transition-transform duration-300 group">
+<div class="w-full h-48 bg-surface-container-low rounded-lg mb-6 overflow-hidden">
+<img alt="ChatGPT" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="macro view of crystalline structures with warm internal light glow representing digital intelligence" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGL8xz0enujdIgXQeqfUzkhgftuTKASrFUnnt4Wha7YHgW7--1W7n5Khny1vx2tTqRtQk89yMq7CJlAJBwqMoupn1zwgnY1IO4Qdrt0bxnj2DJz8PkJGwAWPUniuUWhIjJBK2laemRe2ObuIsKMgdujahROXozGmB20yQK2g5fv3F6fFsDuEfkH3SeDcl25Z86KRK2PaqsXl4CSv0kFmjw7nVmjnErx_GFyj4u_Ja5bKNI1-0yEyXo4hUXmySYrJusE4RG4bCrVd2F"/>
+</div>
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-orange-100 text-orange-700 text-[10px] font-bold uppercase tracking-widest rounded-full">Intermediate</span>
+</div>
+<h4 class="text-xl font-bold text-[#2C3E6B] mb-2">ChatGPT活用</h4>
+<div class="flex items-center gap-4 text-sm text-outline font-medium">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="schedule">schedule</span> 25 mins
+                        </span>
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-base" data-icon="play_circle">play_circle</span> Resume
+                        </span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_12px_24px_rgba(44,62,107,0.06)] hover:scale-[1.02] transition-transform duration-300 group">
+<div class="w-full h-48 bg-surface-container-low rounded-lg mb-6 overflow-hidden">
+<img alt="Claude" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="smooth liquid metallic waves flowing in a warm sunset light with soft reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWbUNr-KZ2rhTMI0Wgmv8hMEfz9psVZDwJf-WXaadkb_ojZQ1t_dCGq9spNgfz92Upk1lvn-W2k-CEK1-U-jDSOLqMU_G82XMyT59YSmqtgjrjA39rrsBz1BmTrOAk1B6HSj1nDFrDEi1D4haABwHAG6Ou1-z79fh4AGAD2zCTXbZUBCuNezbvcbxZabuDa2LELLPyJ82cLYvyVSI7PjyHB-WXQOfgFizUZTn6ZooZdb0MOVa4ukRL6WynEvlOAjmPbykG8k6Wq5XA"/>
+</div>
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-red-100 text-red-700 text-[10px] font-bold uppercase tracking-widest rounded-full">Advanced</span>
+</div>
+<h4 class="text-xl font-bold text-[#2C3E6B] mb-2">Claude活用</h4>
+<div class="flex items-center gap-4 text-sm text-outline font-medium">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="schedule">schedule</span> 30 mins
+                        </span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_12px_24px_rgba(44,62,107,0.06)] hover:scale-[1.02] transition-transform duration-300 group">
+<div class="w-full h-48 bg-surface-container-low rounded-lg mb-6 overflow-hidden">
+<img alt="Canva AI" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="dynamic geometric abstract with vibrant warm colors and soft textures in a modern layout" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVnxnaUR0MFU0Ne2j4XhaO5ySk1aeGfxriOz6xQAe4uIcurI02CI5iVYAPnQ76fM7OFh1DHtIBYFuqUPhqrnmU9wSdtP2WyzhhLHI30j8Pg-9RwOp13lzvqkz-xZJM4wFLyJfcmL802k33y-qx99zI2t6kMPBgK1Fr53U-Xp55Z9c1Rqjqu2mvtFHJtJiDE-rcmdTHKIUgCbbcGXOIiMsq4jPBD08TbuqrYvBtu1RqcBoY3EyBNLFnrHx_wJrlidPISfkLc4Y3DvHz"/>
+</div>
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-orange-100 text-orange-700 text-[10px] font-bold uppercase tracking-widest rounded-full">Intermediate</span>
+</div>
+<h4 class="text-xl font-bold text-[#2C3E6B] mb-2">Canva AI</h4>
+<div class="flex items-center gap-4 text-sm text-outline font-medium">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="schedule">schedule</span> 20 mins
+                        </span>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_12px_24px_rgba(44,62,107,0.06)] hover:scale-[1.02] transition-transform duration-300 group">
+<div class="w-full h-48 bg-surface-container-low rounded-lg mb-6 overflow-hidden">
+<img alt="Proposal" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="overhead shot of a clean workspace with premium stationery, a sleek tablet, and warm coffee in golden hour light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAitcXJe-MaTLxgW0GDYPcTQS_-AnZohUX2jtWFPpXNL4n4MrxyDU07crm410P-cZGj90NzH8vvHQChAsLzPCu5820-mFq5fMF11P6YBm3Kgs2OmP2zp3uef_Itg4SBOLvBbX1CWuGrIuMHkKDtAfODfAHJICb1PVbbIH4RZsKlYxfI8YM9p8zoQSS9N5Kzbr3yjmwOPhjc0FcPRIfj2PIrG_lTx40AN3NvMEKeMr6K57xuYb2ToM2tXBZeXZQg2ahvEYba-CMfh340"/>
+</div>
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-red-100 text-red-700 text-[10px] font-bold uppercase tracking-widest rounded-full">Advanced</span>
+<div class="flex items-center text-primary">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-xs font-bold">Completed</span>
+</div>
+</div>
+<h4 class="text-xl font-bold text-[#2C3E6B] mb-2">提案作成</h4>
+<div class="flex items-center gap-4 text-sm text-outline font-medium">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="schedule">schedule</span> 45 mins
+                        </span>
+</div>
+</div>
+<!-- Card 6: Coming Soon -->
+<div class="bg-surface-container rounded-xl p-8 flex flex-col items-center justify-center text-center opacity-60 border-2 border-dashed border-outline-variant/30">
+<div class="w-16 h-16 bg-surface-container-high rounded-full flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-3xl text-outline" data-icon="lock">lock</span>
+</div>
+<h4 class="text-xl font-bold text-[#2C3E6B] mb-1">Coming Soon</h4>
+<p class="text-sm text-outline">新しい課題を準備中です</p>
+</div>
+</div>
+</section>
+</main>
+<!-- SideNavBar (Desktop Only) -->
+<aside class="hidden md:flex fixed left-0 top-0 h-screen w-20 lg:w-64 bg-[#F2EDE9] dark:bg-slate-900 rounded-r-[3rem] flex-col py-8 gap-4 transition-all duration-300 ease-in-out z-40">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="school">school</span>
+</div>
+<div class="hidden lg:block">
+<h3 class="text-xl font-bold text-[#2C3E6B] dark:text-white font-['Plus_Jakarta_Sans']">The Curator</h3>
+<p class="text-[10px] text-primary font-bold uppercase tracking-widest">AI Promotion Board</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="text-[#415381] dark:text-slate-400 px-4 py-3 mx-2 hover:bg-[#ECE7E3] dark:hover:bg-slate-800 rounded-full flex items-center gap-3 group transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="hidden lg:inline font-medium">Dashboard</span>
+</a>
+<a class="text-[#415381] dark:text-slate-400 px-4 py-3 mx-2 hover:bg-[#ECE7E3] dark:hover:bg-slate-800 rounded-full flex items-center gap-3 group transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="hidden lg:inline font-medium">Members</span>
+</a>
+<a class="text-[#415381] dark:text-slate-400 px-4 py-3 mx-2 hover:bg-[#ECE7E3] dark:hover:bg-slate-800 rounded-full flex items-center gap-3 group transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="archive">archive</span>
+<span class="hidden lg:inline font-medium">Archive</span>
+</a>
+<a class="bg-gradient-to-br from-[#954928] to-[#F0916A] text-white rounded-full mx-2 shadow-lg px-4 py-3 flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="hidden lg:inline font-bold">Training</span>
+</a>
+</nav>
+<div class="px-4 mt-auto flex flex-col gap-2 border-t border-outline-variant/10 pt-4">
+<button class="bg-white/50 text-[#2C3E6B] font-bold py-3 rounded-full hidden lg:block hover:bg-white transition-all shadow-sm">
+                New Evaluation
+            </button>
+<a class="text-[#415381] dark:text-slate-400 px-4 py-3 mx-2 hover:bg-[#ECE7E3] dark:hover:bg-slate-800 rounded-full flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="hidden lg:inline font-medium">Support</span>
+</a>
+<a class="text-[#415381] dark:text-slate-400 px-4 py-3 mx-2 hover:bg-[#ECE7E3] dark:hover:bg-slate-800 rounded-full flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="hidden lg:inline font-medium">Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- Mobile Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-high/90 backdrop-blur-lg z-50 flex justify-around items-center py-4 px-6 rounded-t-3xl shadow-[0_-12px_24px_rgba(44,62,107,0.06)]">
+<a class="flex flex-col items-center gap-1 text-outline" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Dash</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-outline" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Members</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="school" style="font-variation-settings: 'FILL' 1;">school</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Training</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-outline" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Settings</span>
+</a>
+</nav>
+</body></html>

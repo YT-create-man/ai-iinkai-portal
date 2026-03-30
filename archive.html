@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Promotion Committee - The Archive</title>
+<!-- Google Fonts: Nunito & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "surface-container-high": "#ece7e3",
+                "primary-fixed": "#ffdbce",
+                "on-tertiary": "#ffffff",
+                "inverse-on-surface": "#f5f0ec",
+                "on-secondary-fixed": "#021945",
+                "tertiary-fixed": "#87f5ed",
+                "inverse-primary": "#ffb598",
+                "on-secondary": "#ffffff",
+                "on-tertiary-container": "#004643",
+                "on-primary-fixed-variant": "#773213",
+                "on-error": "#ffffff",
+                "inverse-surface": "#32302e",
+                "tertiary-container": "#47bab3",
+                "primary": "#954928",
+                "primary-fixed-dim": "#ffb598",
+                "on-secondary-container": "#415381",
+                "on-primary-container": "#6c2a0a",
+                "surface-dim": "#ded9d5",
+                "on-background": "#1d1b19",
+                "on-surface": "#1d1b19",
+                "secondary-fixed": "#dae2ff",
+                "surface-tint": "#954928",
+                "surface-bright": "#fdf8f4",
+                "surface": "#fdf8f4",
+                "secondary": "#4c5d8c",
+                "on-primary-fixed": "#370e00",
+                "on-secondary-fixed-variant": "#334573",
+                "secondary-container": "#b6c8fe",
+                "outline": "#87736b",
+                "error": "#ba1a1a",
+                "surface-container": "#f2ede9",
+                "on-primary": "#ffffff",
+                "on-error-container": "#93000a",
+                "background": "#fdf8f4",
+                "surface-container-lowest": "#ffffff",
+                "surface-container-highest": "#e6e2de",
+                "outline-variant": "#dac1b8",
+                "secondary-fixed-dim": "#b4c5fb",
+                "on-tertiary-fixed-variant": "#00504c",
+                "surface-container-low": "#f8f3ef",
+                "primary-container": "#f0916a",
+                "on-surface-variant": "#54433c",
+                "error-container": "#ffdad6",
+                "surface-variant": "#e6e2de",
+                "on-tertiary-fixed": "#00201e",
+                "tertiary-fixed-dim": "#69d8d1",
+                "tertiary": "#006a65"
+              },
+              fontFamily: {
+                "headline": ["Nunito", "sans-serif"],
+                "body": ["Plus Jakarta Sans", "sans-serif"],
+                "label": ["Plus Jakarta Sans", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+            },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FDF8F4;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Nunito', sans-serif;
+        }
+        .peach-gradient {
+            background: linear-gradient(135deg, #954928 0%, #F0916A 100%);
+        }
+      </style>
+</head>
+<body class="text-on-surface bg-background min-h-screen">
+<!-- TopAppBar Shell -->
+<nav class="fixed top-0 w-full z-50 bg-[#FDF8F4]/80 backdrop-blur-xl transition-all duration-300">
+<div class="flex justify-between items-center w-full px-8 py-4 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-4">
+<span class="text-2xl font-bold tracking-tight text-[#2C3E6B]">AI推進委員会</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-[#954928] border-b-2 border-[#954928] pb-1 font-bold" href="#">Archive Home</a>
+<a class="text-[#415381] hover:scale-[1.02] hover:text-[#954928] transition-all duration-300" href="#">Committee Notes</a>
+<a class="text-[#415381] hover:scale-[1.02] hover:text-[#954928] transition-all duration-300" href="#">Policy Library</a>
+<a class="text-[#415381] hover:scale-[1.02] hover:text-[#954928] transition-all duration-300" href="#">Member Directory</a>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group hidden lg:block">
+<input class="bg-white border-none rounded-full px-6 py-2 w-64 text-sm focus:ring-2 focus:ring-primary-container shadow-sm outline-none" placeholder="Search archive..." type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="material-symbols-outlined text-[#415381] hover:scale-110 transition-transform">notifications</button>
+<button class="material-symbols-outlined text-[#415381] hover:scale-110 transition-transform">settings</button>
+<img alt="Committee Member Profile" class="w-10 h-10 rounded-full object-cover border-2 border-primary-container/20" data-alt="professional portrait of a senior AI committee member with a warm smile and sophisticated executive attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1KZjVpKrH8yss7Ip-XDALECyAeF9aPwXREVYioVDQgn--7aOXJC2XQJU8uS8-qOG_BsYh6vzB_y69D5Ffrk2rJQy9AE1_zvnl_l9EpSjtiq2lzPfWkxRY9V0JBPl41uaxmZpgYjGF_0Vgr4IT_3_QN68VyUjhxgDWIV2S4WX9J-P6IzTUAXuhJqbapvGeNVHES_k0LN8WlGs7QVyREUqOWj8ImaXIIGt7Ftlg_381L2Lq-IB8Ga1mMkBmDp_-F4ueBH3DLo7kuIvP"/>
+</div>
+</div>
+</div>
+</nav>
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 hidden xl:flex flex-col h-full w-72 p-6 z-40 bg-[#F8F3EF] shadow-[12px_0_24px_rgba(44,62,107,0.04)] rounded-r-[3rem] pt-24">
+<div class="flex items-center gap-4 mb-12 px-4">
+<div class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined" data-weight="fill">inventory_2</span>
+</div>
+<div>
+<h2 class="text-lg font-bold text-[#2C3E6B]">The Archive</h2>
+<p class="text-xs font-medium text-[#415381]/70 tracking-wide">AI推進委員会</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 bg-white text-[#954928] rounded-full shadow-sm font-bold px-6 py-3 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-['Nunito'] text-sm tracking-wide">Archive Home</span>
+</a>
+<a class="flex items-center gap-4 text-[#415381] hover:bg-[#ECE7E3] px-6 py-3 rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-['Nunito'] text-sm tracking-wide">Committee Notes</span>
+</a>
+<a class="flex items-center gap-4 text-[#415381] hover:bg-[#ECE7E3] px-6 py-3 rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">gavel</span>
+<span class="font-['Nunito'] text-sm tracking-wide">Policy Library</span>
+</a>
+<a class="flex items-center gap-4 text-[#415381] hover:bg-[#ECE7E3] px-6 py-3 rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">photo_library</span>
+<span class="font-['Nunito'] text-sm tracking-wide">Asset Gallery</span>
+</a>
+<a class="flex items-center gap-4 text-[#415381] hover:bg-[#ECE7E3] px-6 py-3 rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-['Nunito'] text-sm tracking-wide">Member Directory</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant/10 space-y-2">
+<button class="w-full peach-gradient text-white rounded-full py-4 font-bold flex items-center justify-center gap-2 mb-6 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined text-xl">add</span>
+                New Entry
+            </button>
+<a class="flex items-center gap-4 text-[#415381] hover:bg-[#ECE7E3] px-6 py-3 rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-['Nunito'] text-sm tracking-wide">Support</span>
+</a>
+<a class="flex items-center gap-4 text-[#415381] hover:bg-[#ECE7E3] px-6 py-3 rounded-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-['Nunito'] text-sm tracking-wide">Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="xl:ml-72 pt-28 px-8 pb-16 max-w-screen-2xl mx-auto">
+<!-- High-level Header (Curator Header Style) -->
+<header class="flex justify-between items-end mb-16">
+<div class="max-w-2xl">
+<span class="text-primary font-bold tracking-widest text-xs uppercase mb-4 block">Curation Hub</span>
+<h1 class="text-6xl font-extrabold text-[#2C3E6B] tracking-tight leading-tight">Archive</h1>
+<p class="text-lg text-[#415381] mt-6 leading-relaxed opacity-80">Explore the collective intelligence of the AI Promotion Committee. A curated vault of ideas, frameworks, and future-forward proposals.</p>
+</div>
+<div class="hidden md:flex flex-col items-end gap-6">
+<button class="peach-gradient text-white px-8 py-4 rounded-xl font-bold flex items-center gap-3 shadow-lg hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined">publish</span>
+                    Submit Work
+                </button>
+</div>
+</header>
+<!-- Filter Bar -->
+<section class="bg-[#F8F3EF] rounded-2xl p-4 mb-12 flex flex-wrap items-center gap-4 shadow-sm">
+<div class="flex items-center bg-white rounded-xl p-1 gap-1">
+<button class="px-6 py-2 rounded-lg bg-[#954928] text-white text-sm font-bold transition-all">All</button>
+<button class="px-6 py-2 rounded-lg text-[#415381] hover:bg-surface-container-high text-sm font-medium transition-all">Ideas</button>
+<button class="px-6 py-2 rounded-lg text-[#415381] hover:bg-surface-container-high text-sm font-medium transition-all">Proposals</button>
+<button class="px-6 py-2 rounded-lg text-[#415381] hover:bg-surface-container-high text-sm font-medium transition-all">Use Cases</button>
+</div>
+<div class="flex items-center gap-4 ml-auto">
+<div class="relative group">
+<select class="appearance-none bg-white border-none rounded-xl px-6 py-2.5 pr-10 text-sm font-medium text-[#415381] shadow-sm focus:ring-2 focus:ring-primary-container/20 cursor-pointer">
+<option>Sort by Date</option>
+<option>Most Recent</option>
+<option>Oldest</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#415381] text-lg">expand_more</span>
+</div>
+<div class="relative group">
+<select class="appearance-none bg-white border-none rounded-xl px-6 py-2.5 pr-10 text-sm font-medium text-[#415381] shadow-sm focus:ring-2 focus:ring-primary-container/20 cursor-pointer">
+<option>Committee Member</option>
+<option>Dr. Aris Thorne</option>
+<option>Elena Vance</option>
+<option>Marcus Aurelio</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#415381] text-lg">expand_more</span>
+</div>
+<button class="w-11 h-11 flex items-center justify-center bg-white rounded-xl shadow-sm hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[#415381]">filter_list</span>
+</button>
+</div>
+</section>
+<!-- Content Grid (3-column asymmetric inspired grid) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<article class="group bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(44,62,107,0.04)] hover:shadow-[0_12px_24px_rgba(44,62,107,0.08)] transition-all duration-300">
+<div class="relative h-64 overflow-hidden">
+<img alt="Neural Networks" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="abstract flowing gradients of burnt orange and soft peach mimicking digital neuron pathways in a warm glowing void" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5XgmdyZEwJFb6OLVxNm08P9tIKNLg1S4NneaaNYxiCo3s3NYlSf2WcEP2Rfe8YggyQ5M4aTz9XvOAkQyYYOlpm6Vs9ZnOrNYYEV9uzQZwR6maWwfj-QPZMkRfHSHxLwze8RrIPXOMKoFn5QV9cwMQsfDQqf105BNYa-4dxqUtnTkstMb7KQTGDVXRglOQiDjk7Q9_UDga2vc3sFN2lyJZyiohzZnw-hXKH6Yn2l_hKC7p0CAD8zyhbKCprBioQwk8YrmAHCp-ylnt"/>
+<span class="absolute top-4 left-4 bg-[#F0916A]/90 backdrop-blur-md text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full">Proposals</span>
+</div>
+<div class="p-8">
+<h3 class="text-xl font-bold text-[#2C3E6B] mb-4 leading-tight group-hover:text-primary transition-colors">Neural Architecture for Ethical Governance</h3>
+<p class="text-sm text-[#415381] opacity-70 line-clamp-2 mb-6">A comprehensive framework proposing real-time audit logs for generative models in public sector applications.</p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/10">
+<div class="flex items-center gap-3">
+<img alt="Aris Thorne" class="w-8 h-8 rounded-full" data-alt="headshot of a scholarly man with glasses and grey hair against a soft library background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYr9sX1h0mk0RnT8PxL_TIySKi7F07m64sgmyLXM-V9yFLoY6knHf1aYYnvTLMpzzpsxPk0z0U2Zq9KfhspKI4yTfwq1B-6taFovJMJe7uFq0ivjFnafxKDG03n04c2gxqucDnj9LnQM1nfCZUks9UG1_Evn8MAioAmZalY25ltyojN8v-niPqYiahZ60T6gWpeVN86bYhY8R7QtfANKt5sJiotX-sYBL0cB6Ua09OZlRL815JhiM-nj8tbfNIv_0yz36NVjzjVIgV"/>
+<span class="text-xs font-bold text-[#2C3E6B]">Aris Thorne</span>
+</div>
+<div class="flex items-center gap-4 text-xs font-medium text-[#415381]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">favorite</span> 24</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">chat_bubble</span> 12</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="group bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(44,62,107,0.04)] hover:shadow-[0_12px_24px_rgba(44,62,107,0.08)] transition-all duration-300">
+<div class="relative h-64 overflow-hidden">
+<img alt="Core Values" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="minimalist digital art of spheres floating in a warm cream space with soft shadows and golden metallic accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAUdlj3rMZNFPqkk0vzUQC6Ky9Je724qHcBvzhjp6q8f2wleUss_VZq_T8ow4p8RmxyAktLzpBOrqyv1Fcfo9-ARPdZ7j7BhwPjQAJeSt7K5AN0Q_6rSZ9EeMJDqsPdNx9uR9g3QsVMJGEFELbLEcxJDDZhaojJZitXCfmNkMbeAGfL8der6uep9iHDtKw1CzKZ-MTm-i_WlY10nlba64sWbsrIRJSUzJDHg20qm5shsPA3wnVYw5jUSW2X0SOzL1pRWUeYKd7ffvt"/>
+<span class="absolute top-4 left-4 bg-[#F0916A]/90 backdrop-blur-md text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full">Ideas</span>
+</div>
+<div class="p-8">
+<h3 class="text-xl font-bold text-[#2C3E6B] mb-4 leading-tight group-hover:text-primary transition-colors">The Human-Centric Feedback Loop</h3>
+<p class="text-sm text-[#415381] opacity-70 line-clamp-2 mb-6">Redefining the relationship between prompt engineering and artisan craft in the new digital age.</p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/10">
+<div class="flex items-center gap-3">
+<img alt="Elena Vance" class="w-8 h-8 rounded-full" data-alt="portrait of a woman with braided hair smiling in a bright sunlit studio with plants" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMBhq2ikd9RQ24uLUKHnmg5f8xd_oL6cYV5m9vByzF6NdjWKchzzRhNyA65Yunc3jtqP98XjSKfXOiMUd3PwSBLlvxmx1qkXWGErKNRAd6MkSQXcbJfFiGy5jRH71dPKL6jFk9ZS6AAKTMV1g8bwxCgKqc65RVpTmE1NA54xSMNIKGYLoJlASHXJrYruMUf3Sl1MRAisTLcahA1mxR4okvEbAv0vtHegYz2180Epy2pY7-3vAm4qlxLfs6XKq7qlBVr85HV8EVtZ0Q"/>
+<span class="text-xs font-bold text-[#2C3E6B]">Elena Vance</span>
+</div>
+<div class="flex items-center gap-4 text-xs font-medium text-[#415381]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">favorite</span> 56</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">chat_bubble</span> 8</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="group bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(44,62,107,0.04)] hover:shadow-[0_12px_24px_rgba(44,62,107,0.08)] transition-all duration-300">
+<div class="relative h-64 overflow-hidden">
+<img alt="Global Impact" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="view of earth from space at night with glowing connection lines in warm amber and gold tones across the dark surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtscn77XZ4I0o9OEEhWEURQklFWhcXBmeJCyjDfnir-KJrbBNoyIkKgLR3ecJbZiC79MY6TDKr6N4ZdF1i2Zw_2QP_uqRW30DYF4ZB3wu4dzEsuBWG9a__kiGxY5--Cj5MbnpKSk20kMTktKkQebitnGKfY8zp03dbSee7iKarPm9GYHLcSyWgNUUmYrhBZSX6z7k8g0Zb0siD2wguAi-WWbkonqxBouuIqGUUTdtCwiTZoY09589pjIUJywzfwP80jnLxiPlQuaLS"/>
+<span class="absolute top-4 left-4 bg-[#F0916A]/90 backdrop-blur-md text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full">Use Cases</span>
+</div>
+<div class="p-8">
+<h3 class="text-xl font-bold text-[#2C3E6B] mb-4 leading-tight group-hover:text-primary transition-colors">Global Supply Chain Optimization</h3>
+<p class="text-sm text-[#415381] opacity-70 line-clamp-2 mb-6">A pilot study on using narrow AI for sustainable resource allocation in emerging markets.</p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/10">
+<div class="flex items-center gap-3">
+<img alt="Marcus Aurelio" class="w-8 h-8 rounded-full" data-alt="portrait of a professional man in a navy blazer against a minimalist white office interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe-5dg1U8uifezqlQU_Y8pQ5e7_xxSiAKmvYV_YpDIH9Aj4UQeDwB81D8tw8LHsSy3IBF8D7j22jsThbSC4z18pwIbjYADzX9782zIya0BSXDJzLdkQyQXsqBwWwhL_RWEr7Dzb6wZLVVLk5W4bshxR9aIzm14n6oNbB8DAVo79i3V-kPBJFXoe5n-CYpzVBoL56eTEBjB_Gpr-J2zjCv-B-lpC6JK7zgYPPJASW5jU7D6eHtYsyxq_oXz7R5Wd_Xg1bwmt7rq6SEn"/>
+<span class="text-xs font-bold text-[#2C3E6B]">Marcus Aurelio</span>
+</div>
+<div class="flex items-center gap-4 text-xs font-medium text-[#415381]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">favorite</span> 42</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">chat_bubble</span> 5</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="group bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(44,62,107,0.04)] hover:shadow-[0_12px_24px_rgba(44,62,107,0.08)] transition-all duration-300">
+<div class="relative h-64 overflow-hidden">
+<img alt="Hardware Evolution" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="macro close-up of a high-tech computer chip with warm yellow and copper lights glowing from within its intricate circuits" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhapeNhmjFpyZJ8F3mYlhh9ZVoVKSZ5uPidqF72JhcQx2D3K7my0eNqScZBJvi0lv4BH0jc4kAs88JwjlIbOSp9THgKJvX78CST7j-Zm3_4dlLvt1tYQS1JJ7UAgstOuVnlzk6tQPzXNRXIGpUBMBmGNWHtlyWRSEkn_sPkp5ouw-7nahh0XaJNjVnDRzabANsi-vCxTEgtY98ltxnVWEOMRoT1JyyRxp2bO_1mREzjoUBEDl5R29dqAI2APJ-LcDvChdtRkV-nggD"/>
+<span class="absolute top-4 left-4 bg-[#F0916A]/90 backdrop-blur-md text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full">Others</span>
+</div>
+<div class="p-8">
+<h3 class="text-xl font-bold text-[#2C3E6B] mb-4 leading-tight group-hover:text-primary transition-colors">Semi-Conductor Ethics &amp; Scarcity</h3>
+<p class="text-sm text-[#415381] opacity-70 line-clamp-2 mb-6">Investigating the geopolitical implications of processing power allocation in the 2030s.</p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/10">
+<div class="flex items-center gap-3">
+<img alt="Sarah Chen" class="w-8 h-8 rounded-full" data-alt="portrait of a professional woman with a confident expression in a bright modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw1Rz5rs-PWzd1odiw5RSJL6qro0yb1vtyi8997l0P9XipjAdv8pECtFFCztYNFiG4M4TvbywtyV_AK57MlAY3XN7SE6P7OrfHvn0Jov3gg2LSwBZvm2lkFaKc74oibUdlpSq0rLBRldDDIrpulbr3Cv25Z6_yGG9lyjmMN4VrO7B61KEiPt5lhMS7pT5d89V6xrzJgdL7g0Iwc_nRF7x2g5YZ1ieEil8z4z74z8fhkRgXKbLqXK3Ug-JQ9NPF_XEJtb_CAD1lZ2Ji"/>
+<span class="text-xs font-bold text-[#2C3E6B]">Sarah Chen</span>
+</div>
+<div class="flex items-center gap-4 text-xs font-medium text-[#415381]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">favorite</span> 89</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">chat_bubble</span> 21</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 5 -->
+<article class="group bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(44,62,107,0.04)] hover:shadow-[0_12px_24px_rgba(44,62,107,0.08)] transition-all duration-300">
+<div class="relative h-64 overflow-hidden">
+<img alt="Home Office Future" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="warm cozy home office at dusk with soft lamp light and futuristic digital holographic displays over the wooden desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQAwOmbpv9RkFEdJh54WNh2dF0Vdl6e2KLTOnB1yReQH5YUHYu6ZQYvsZFi0hthGsqhXReZz5NIHMY3inxZXUmz4t7G0dsxxnYXvlM-t1Q_FxPUhVxFx1Ph_Si-nUQxn1X4N4raSh_PhBGAmILnsRqJRrAxrcKBPQwwhEqBNPEDzQnQBXenRYvvV_hdw35_A2uvQU51IeZbo2OOExEXqa52QZt2mtoBylopFfvbygAUqmGoioAV_X3rdhidc5TyRnw5Iupq_G-BCYN"/>
+<span class="absolute top-4 left-4 bg-[#F0916A]/90 backdrop-blur-md text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full">Proposals</span>
+</div>
+<div class="p-8">
+<h3 class="text-xl font-bold text-[#2C3E6B] mb-4 leading-tight group-hover:text-primary transition-colors">Adaptive Workspaces in AI Era</h3>
+<p class="text-sm text-[#415381] opacity-70 line-clamp-2 mb-6">How intelligent environments can support deep focus and mental well-being in hybrid roles.</p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/10">
+<div class="flex items-center gap-3">
+<img alt="Lila Rose" class="w-8 h-8 rounded-full" data-alt="candid portrait of a young woman with a thoughtful expression in a soft-focus garden setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFCrQfs8tgAr2EvyBE5si-E-d-dAFj2nq07cocKuhAV3vX0SYfkcDeAhCkdO8AQsj2BMAUxlbKaZw2j-EzxczVcHEgjR4Kz7gxG6_ouKMC1b7F841UipsxURqVJYDdF8XDEj5mUkuGtW0Ma8JKhzZPme6P0bDFJ8XVkKq5_eUeWuEVoaRqCCiwjjxI8PHdd4pmELPJI6jw41PGm7xsKHN_417NRvUbBRgn2Tuvt5pMGCrMu-rqsNZn571_KFNr4l_RdkFQERt3ugVJ"/>
+<span class="text-xs font-bold text-[#2C3E6B]">Lila Rose</span>
+</div>
+<div class="flex items-center gap-4 text-xs font-medium text-[#415381]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">favorite</span> 112</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">chat_bubble</span> 15</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 6 -->
+<article class="group bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(44,62,107,0.04)] hover:shadow-[0_12px_24px_rgba(44,62,107,0.08)] transition-all duration-300">
+<div class="relative h-64 overflow-hidden">
+<img alt="Crystal Refraction" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="abstract close-up of light refracted through crystal glass prisms creating soft rainbow flares and warm bokeh" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACwsFx71XyrbZiUpJTrNMEcr_qdmI8rJokgTP4Eqereq3lSBRCHUusqtjk9G51uTscu1eWxpGp_eOaSM7ip0nXKgi8L2HdjXVCKJivadIa35NTEExDKJ6EY6SssafTaSC0mCHR76MWECeIzODl36J7ynk3LVPO3paKy-A-VPo6BIA6vRasiZk7dgZV3OIu2CvA03fnBT4tdDp2Ras02qW5TtVztZoGscqK0OqaeZL4j0uwbwdmdvU-OLfoZRVYBtQxW1bUGGdPs7ML"/>
+<span class="absolute top-4 left-4 bg-[#F0916A]/90 backdrop-blur-md text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full">Ideas</span>
+</div>
+<div class="p-8">
+<h3 class="text-xl font-bold text-[#2C3E6B] mb-4 leading-tight group-hover:text-primary transition-colors">The Transparency Manifesto</h3>
+<p class="text-sm text-[#415381] opacity-70 line-clamp-2 mb-6">Building radical public trust through open-source dataset disclosure and lineage tracking.</p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/10">
+<div class="flex items-center gap-3">
+<img alt="David Wright" class="w-8 h-8 rounded-full" data-alt="portrait of a dignified man with a short beard in a grey sweater in a warm bright studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-NdpD3JmRvXyKgVwjKAq3FoXuABt77WO8v0GBb1a9QybPgsfQIm8PSfNKWG22Tj538mhuXguJz578WvmqbEIEB5Z_mH9GmClLC7EioK5yI5nm2z_YmhaVA1YgeFZ02qEwwuWKiMfX9J8TECakOKnIlGxPU6h_A010x90NrUlhCjbm2Ucs_GVnR54TN_mcL2EocznLsJmSRSk3jwl6Vqp6-WasgaqEei42HOHtdrjdbO6OD9BCmxZsonJB6pZdnpmGfEi4segKbY_Z"/>
+<span class="text-xs font-bold text-[#2C3E6B]">David Wright</span>
+</div>
+<div class="flex items-center gap-4 text-xs font-medium text-[#415381]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">favorite</span> 64</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">chat_bubble</span> 9</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+<!-- Pagination / Load More -->
+<div class="mt-20 flex flex-col items-center">
+<button class="bg-surface-container-high text-[#415381] font-bold px-12 py-4 rounded-xl hover:bg-surface-container-highest transition-colors shadow-sm">
+                Load More Entries
+            </button>
+<p class="mt-4 text-xs font-medium text-[#415381]/50 tracking-widest uppercase">Showing 6 of 128 archived works</p>
+</div>
+</main>
+<!-- Floating Action Button for Mobile -->
+<button class="xl:hidden fixed bottom-8 right-8 w-16 h-16 peach-gradient text-white rounded-full shadow-2xl flex items-center justify-center z-50">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</body></html>
