@@ -1,351 +1,347 @@
 <!DOCTYPE html>
-
-<html class="light" lang="en"><head>
+<html lang="ja">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>AI推進委員会ポータル</title>
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<!-- Icons -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "on-tertiary-fixed": "#00201e",
-              "inverse-surface": "#32302e",
-              "secondary-fixed": "#dae2ff",
-              "on-secondary-fixed": "#021945",
-              "surface-container-low": "#f8f3ef",
-              "on-tertiary": "#ffffff",
-              "on-surface": "#1d1b19",
-              "on-primary-fixed-variant": "#773213",
-              "on-secondary": "#ffffff",
-              "tertiary-fixed-dim": "#69d8d1",
-              "surface-container": "#f2ede9",
-              "inverse-on-surface": "#f5f0ec",
-              "primary-container": "#f0916a",
-              "error": "#ba1a1a",
-              "error-container": "#ffdad6",
-              "surface-dim": "#ded9d5",
-              "secondary-container": "#b6c8fe",
-              "inverse-primary": "#ffb598",
-              "primary-fixed": "#ffdbce",
-              "on-tertiary-container": "#004643",
-              "on-error-container": "#93000a",
-              "tertiary": "#006a65",
-              "surface": "#fdf8f4",
-              "outline": "#87736b",
-              "surface-bright": "#fdf8f4",
-              "primary": "#954928",
-              "on-background": "#1d1b19",
-              "surface-tint": "#954928",
-              "tertiary-container": "#47bab3",
-              "on-secondary-fixed-variant": "#334573",
-              "outline-variant": "#dac1b8",
-              "primary-fixed-dim": "#ffb598",
-              "secondary-fixed-dim": "#b4c5fb",
-              "tertiary-fixed": "#87f5ed",
-              "on-secondary-container": "#415381",
-              "surface-container-high": "#ece7e3",
-              "on-error": "#ffffff",
-              "on-primary": "#ffffff",
-              "surface-container-lowest": "#ffffff",
-              "on-surface-variant": "#54433c",
-              "surface-variant": "#e6e2de",
-              "on-primary-container": "#6c2a0a",
-              "on-primary-fixed": "#370e00",
-              "surface-container-highest": "#e6e2de",
-              "on-tertiary-fixed-variant": "#00504c",
-              "secondary": "#4c5d8c",
-              "background": "#fdf8f4"
-            },
-            fontFamily: {
-              "headline": ["Nunito", "sans-serif"],
-              "body": ["Nunito", "sans-serif"],
-              "label": ["Plus Jakarta Sans", "sans-serif"]
-            },
-            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
-          },
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy:   "#2C3E6B",
+          peach:  "#F0916A",
+          cream:  "#FDF8F4",
+          card:   "#FFFFFF",
+          muted:  "#F2EDE9",
+          border: "#E0D5CF",
         },
+        fontFamily: { sans: ["Nunito", "sans-serif"] }
       }
-    </script>
+    }
+  }
+</script>
 <style>
-      .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-      }
-      .filled-icon {
-        font-variation-settings: 'FILL' 1;
-      }
-      body {
-        font-family: 'Nunito', sans-serif;
-      }
-      .custom-scrollbar::-webkit-scrollbar {
-        width: 4px;
-      }
-      .custom-scrollbar::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #DAC1B8;
-        border-radius: 10px;
-      }
-    </style>
+  body { font-family: 'Nunito', sans-serif; background: #FDF8F4; color: #2C3E6B; }
+  .reaction-btn.active { background: #FDE8E0; }
+  .level-bar { height: 6px; background: #E0D5CF; border-radius: 999px; overflow: hidden; }
+  .level-fill { height: 100%; background: linear-gradient(90deg, #F0916A, #2C3E6B); border-radius: 999px; transition: width .4s; }
+</style>
 </head>
-<body class="bg-surface text-[#2C3E6B] min-h-screen selection:bg-primary-container/30">
-<!-- Top Navigation Bar -->
-<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-[0_12px_24px_rgba(44,62,107,0.06)]">
-<div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
-<div class="flex items-center gap-2">
-<span class="text-xl font-bold text-[#2C3E6B] dark:text-slate-50 tracking-tight">AI推進委員会</span>
-</div>
-<nav class="hidden md:flex items-center gap-8">
-<a class="text-[#954928] dark:text-[#F0916A] border-b-2 border-[#954928] pb-1 font-bold transition-all" href="index.html">Dashboard</a>
-<a class="text-[#2C3E6B] dark:text-slate-300 hover:text-[#954928] transition-all" href="member.html">Members</a>
-<a class="text-[#2C3E6B] dark:text-slate-300 hover:text-[#954928] transition-all" href="archive.html">Archive</a>
-<a class="text-[#2C3E6B] dark:text-slate-300 hover:text-[#954928] transition-all" href="training.html">Training</a>
-</nav>
-<div class="flex items-center gap-4">
-<button class="p-2 rounded-full hover:bg-surface-container transition-colors relative cursor-pointer active:scale-95 transition-all">
-<span class="material-symbols-outlined text-[#2C3E6B]" data-icon="notifications">notifications</span>
-<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
-</button>
-<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container/20 hover:scale-105 transition-transform duration-200">
-<img alt="User profile avatar" data-alt="Close up portrait of a professional woman with a warm friendly smile, soft natural lighting, elegant corporate background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASBh5n9t7v8Qt5ZHfSbOdYSG5TwbBpizJypQZP3nP4AeIHBh_g6F-A3W8gEfTp61LATzfrdXCzUSSj9ZIH-xFiHJdOg4APBVfIYNYhD7PUhSyl_a71p_vkEDr-7aiPWbAsQjuh7XIZjoZqyC0HZAbXGR9Is69vLhEokXv0z-0znnOUnoqwOthiLb5R3s8W54cn3Q5JwTIdUTn8jAfsVJ5gHdLcTLIfbhsY20Z8jrnbzRDrP0V3za967HY7U7MqfQEj4hRPnf12NVYQ"/>
-</div>
-</div>
-</div>
+<body class="min-h-screen">
+
+<!-- Header -->
+<header class="bg-white border-b border-border sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+    <span class="font-extrabold text-lg text-navy tracking-tight">AI推進委員会 ポータル</span>
+    <nav class="flex gap-6 text-sm font-bold">
+      <a href="dashboard.html" class="text-peach border-b-2 border-peach pb-0.5">ダッシュボード</a>
+      <a href="member.html"   class="text-navy/60 hover:text-navy">メンバー</a>
+      <a href="training.html" class="text-navy/60 hover:text-navy">トレーニング</a>
+      <a href="archive.html"  class="text-navy/60 hover:text-navy">アーカイブ</a>
+    </nav>
+  </div>
 </header>
-<main class="max-w-7xl mx-auto pt-28 pb-20 px-8">
-<!-- Curator Header Section -->
-<div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-<div class="max-w-2xl">
-<span class="label-md font-bold text-primary tracking-[0.2em] uppercase block mb-4">Internal Intelligence Portal</span>
-<h1 class="text-5xl font-extrabold text-[#2C3E6B] leading-tight tracking-tight">
-                    Welcome back, <span class="text-primary-container">Curator</span>.
-                </h1>
-<p class="text-lg text-[#2C3E6B]/70 mt-4 leading-relaxed">
-                    Nurturing progress through thoughtful AI implementation and human-centric design.
-                </p>
-</div>
-<div class="flex items-center gap-4 bg-surface-container-low p-4 pr-8 rounded-full">
-<div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center text-white">
-<span class="material-symbols-outlined text-3xl filled-icon" data-icon="auto_awesome">auto_awesome</span>
-</div>
-<div>
-<p class="text-sm font-bold opacity-60 uppercase tracking-widest">Active Sprint</p>
-<p class="text-xl font-bold">Innovation Cycle #42</p>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-<!-- Left Column: Committing to Results -->
-<div class="lg:col-span-5 space-y-10">
-<div class="flex items-center justify-between">
-<h2 class="text-2xl font-bold tracking-tight">Committing to Results</h2>
-<span class="material-symbols-outlined text-primary-container" data-icon="trending_up">trending_up</span>
-</div>
-<!-- OKR/KPI Top Card -->
-<div class="bg-surface-container-lowest p-10 rounded-xl shadow-[0_12px_24px_rgba(44,62,107,0.06)] relative overflow-hidden">
-<div class="absolute -right-8 -top-8 w-32 h-32 bg-primary-container/5 rounded-full blur-3xl"></div>
-<div class="flex flex-col items-center text-center space-y-6">
-<p class="text-sm font-bold uppercase tracking-[0.2em] text-[#2C3E6B]/50">Committee Progress</p>
-<div class="relative w-48 h-48 flex items-center justify-center">
-<svg class="w-full h-full transform -rotate-90">
-<circle cx="96" cy="96" fill="transparent" r="88" stroke="#F2EDE9" stroke-width="12"></circle>
-<circle cx="96" cy="96" fill="transparent" r="88" stroke="url(#paint0_linear)" stroke-dasharray="552.92" stroke-dashoffset="121.64" stroke-linecap="round" stroke-width="12"></circle>
-<defs>
-<lineargradient id="paint0_linear" x1="0" x2="1" y1="0" y2="1">
-<stop stop-color="#954928"></stop>
-<stop offset="1" stop-color="#F0916A"></stop>
-</lineargradient>
-</defs>
-</svg>
-<div class="absolute inset-0 flex flex-col items-center justify-center">
-<span class="text-5xl font-extrabold text-[#2C3E6B]">78%</span>
-<span class="text-sm font-bold text-primary-container">Achievement</span>
-</div>
-</div>
-<p class="text-[#2C3E6B]/70 max-w-xs text-sm leading-relaxed">
-                            You're 4% ahead of the quarterly forecast. Keep maintaining the momentum!
-                        </p>
-</div>
-<!-- Individual KPI Items -->
-<div class="mt-10 space-y-6">
-<div class="space-y-2">
-<div class="flex justify-between text-sm font-bold">
-<span>AI Proposals</span>
-<span class="text-primary">24/30</span>
-</div>
-<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
-<div class="h-full bg-primary-container rounded-full" style="width: 80%;"></div>
-</div>
-</div>
-<div class="space-y-2">
-<div class="flex justify-between text-sm font-bold">
-<span>Response Ratio</span>
-<span class="text-primary">92%</span>
-</div>
-<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
-<div class="h-full bg-primary-container rounded-full" style="width: 92%;"></div>
-</div>
-</div>
-<div class="space-y-2">
-<div class="flex justify-between text-sm font-bold">
-<span>SLMC Usage</span>
-<span class="text-primary">65%</span>
-</div>
-<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
-<div class="h-full bg-primary-container rounded-full" style="width: 65%;"></div>
-</div>
-</div>
-</div>
-</div>
-<!-- Department Head Comment -->
-<div class="relative bg-surface-container-lowest p-8 rounded-xl shadow-[0_12px_24px_rgba(44,62,107,0.06)] flex gap-6 items-start">
-<div class="flex-shrink-0 w-16 h-16 rounded-full overflow-hidden ring-4 ring-surface-container">
-<img alt="Dept Head Avatar" data-alt="Portrait of a mature male executive with silver hair, professional attire, looking confident and kind in a well-lit office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNhSCqOoq3i4uxz50ss-U7iKAG_wnyjJ-ToCLMHVjk45Mm2kXU3VtSMHqCXEbIFoKOp08LPPO7-yRNqSXTUo75Fcx3TFCYYX9uFutfRa4vU4eybaKDGT9_YIcwVDnYcRIFdMj-2iTFdWgn_qIoWYae4eclf9UwXTBW1DLiTgCsNSuhYa6BAqavs4iGm5TOQVYhMYE5chpTQ0amCUnbcl1fIpb7HgMazmVwyAd9I5y9tY2G72Bqjl3QzHl5g_iQo3B8XLRmGGU1RcLk"/>
-</div>
-<div class="space-y-2 relative">
-<div class="absolute -left-10 top-2 text-primary/10">
-<span class="material-symbols-outlined text-6xl" data-icon="format_quote">format_quote</span>
-</div>
-<p class="text-xs font-bold uppercase tracking-widest text-primary-container">Message of the Month</p>
-<p class="text-[#2C3E6B] leading-relaxed italic">
-                            "The quality of our committee isn't measured in logs, but in the warmth of the solutions we provide. Excellent work on the latest training modules."
-                        </p>
-<p class="font-bold text-sm">Marcus Chen, Head of Strategic AI</p>
-</div>
-</div>
-</div>
-<!-- Right Column: Enjoying the Process -->
-<div class="lg:col-span-7 space-y-10">
-<div class="flex items-center justify-between">
-<h2 class="text-2xl font-bold tracking-tight">Enjoying the Process</h2>
-<span class="material-symbols-outlined text-primary-container" data-icon="celebration">celebration</span>
-</div>
-<!-- Top 3 Rankings Section -->
-<div class="grid grid-cols-1 gap-4">
-<!-- 1st Place Card -->
-<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_24px_rgba(44,62,107,0.06)] border-l-8 border-primary-container flex items-center justify-between hover:scale-[1.02] transition-transform duration-300">
-<div class="flex items-center gap-6">
-<div class="relative">
-<div class="w-16 h-16 rounded-full overflow-hidden">
-<img alt="Top Rank 1" data-alt="Young man with artistic glasses and creative style, studio lighting, warm soft tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFrkWon7Ny7JPxCW7MjATc3AqeSZtlv96lIz2rrzOg6p-LYEnn4nW2nNk4VumKyeqSK99b6v5m3PA-bO79C5h8YcP0V74ZKZERuGzCuC0tVOz1jqSb0zkqnwSt5bZr8G0sFdtqSoyoSOkvl8otBhsm9Zc8r20UV96zSDcehjit_C0ch2dw7286T3eoW7GypQgBfMlsEGIHp-anhoHX6iafekF6vVLp6-xsqcuddczf519N40P_WLQCkvlOoATHK5FRdPyhdb6LAD2z"/>
-</div>
-<div class="absolute -top-3 -right-3 text-primary-container bg-white rounded-full p-1 shadow-sm">
-<span class="material-symbols-outlined text-3xl filled-icon" data-icon="workspace_premium">workspace_premium</span>
-</div>
-</div>
-<div>
-<h3 class="text-xl font-extrabold">Julian Thorne</h3>
-<p class="text-sm opacity-60">Creative Engineering Specialist</p>
-</div>
-</div>
-<div class="text-right">
-<p class="text-3xl font-black text-primary">2,480</p>
-<p class="text-xs font-bold uppercase tracking-tighter opacity-40">Points Earned</p>
-</div>
-</div>
-<!-- 2nd and 3rd Place Small Cards -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div class="bg-white/50 p-5 rounded-xl flex items-center gap-4 hover:bg-white transition-all">
-<span class="text-lg font-black text-outline/30">#2</span>
-<div class="w-12 h-12 rounded-full overflow-hidden">
-<img alt="Top Rank 2" data-alt="Woman with professional and creative look, bright lighting, soft aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnrNZjkyKnLc2MEOOoL5TTJMpCgZ51r1WGpyJe0VaDOXmKpYFZCcvc2cBQ7q2FsIFMXVtSMyeKildSjDE0jizP2b2nQf2U65ZBAKbUoWlr9v92m_7ET_6PGCPvEUQkJpz8tGrmMydkZBtHbCnh9hwm7fJKSpUsa99I-en-Y4kYvzeiQnRBTzS3ghpyemjb7vmq6RFHjhYDIE6M0O974PvOPm47_pWtllPBXyY_ZPcN-25N63RHtY9GhWW9xKhH66AvBmR41D9kKZBo"/>
-</div>
-<div>
-<h4 class="font-bold text-sm">Elena Vance</h4>
-<p class="text-xs opacity-60">1,940 pts</p>
-</div>
-</div>
-<div class="bg-white/50 p-5 rounded-xl flex items-center gap-4 hover:bg-white transition-all">
-<span class="text-lg font-black text-outline/30">#3</span>
-<div class="w-12 h-12 rounded-full overflow-hidden">
-<img alt="Top Rank 3" data-alt="Young professional man, casual and friendly, outdoor soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbBn5EfXPCdxIgB-FErVbpq7rdvVG4CIYlwfnUtTM6SXtn4h8JqeQfzZC84D9zsacjzSnh-QlILjfho1vztOHNpwrc9WZ0W2UQ6pXXjyYg4kub_xxu9zP0x9YdYoSzZLNCrLZSm_YUOcvFIvpp-2z7LrN7cs-XlTBnvx7T-Ry0erO8uX53U26SP-1btWw-R7lgUiilRtjX5UT8zEIkRgG-l3oIRD8-Eye_nkk7IIzrN3Mw4ac9qNtnk8YPHUfPR5ZjejKwXtSR1E-x"/>
-</div>
-<div>
-<h4 class="font-bold text-sm">Aiden Ross</h4>
-<p class="text-xs opacity-60">1,820 pts</p>
-</div>
-</div>
-</div>
-</div>
-<!-- Feed Section -->
-<div class="space-y-6">
-<h3 class="text-sm font-bold uppercase tracking-widest opacity-40">Latest Updates</h3>
-<!-- Feed Item 1 -->
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_12px_24px_rgba(44,62,107,0.06)] hover:translate-y-[-4px] transition-transform duration-300">
-<div class="flex justify-between items-start mb-4">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
-<img alt="Feed Avatar" data-alt="Candid portrait of a smiling woman in a creative workspace, high-end lifestyle photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqJhfuY-wxNe03HbFOraJG4QzyQCUE_YmvKwaS_9gkiL5wD9oV3BwgqNM6vsSxjhmM-iJjJU6Hx5Smxqi7eTDHkQPo5tx0utBNsOO6hUjPnzIIi6FS7G-2hJjdBZDvGjtCzaYqTFhqe3YO6jmfB4I7LbXzUbGhzzkwyvRPQ3GcHbVhP68BFOkNKgL55AF8C_WzMrJ1i5qDduLMh0U48PJXhVFBQgWL707GZSjlYPXMNCsu_3yuc-3f2FnvYqZNU7XLNyr4aZKnduVw"/>
-</div>
-<div>
-<h4 class="font-bold leading-none">Sarah Millstone</h4>
-<p class="text-xs opacity-50 mt-1">2 hours ago</p>
-</div>
-</div>
-<span class="bg-primary-container/10 text-primary-container px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tight">Idea Shared</span>
-</div>
-<h5 class="text-lg font-bold mb-2">The "Context-Aware" Support Node</h5>
-<p class="text-[#2C3E6B]/70 text-sm leading-relaxed mb-6">
-                            Proposed a new neural layer for our internal support bot that detects emotional sentiment before choosing its response tone. Initial tests look promising!
-                        </p>
-<div class="flex items-center gap-6 pt-4 border-t border-surface-container">
-<button class="flex items-center gap-2 text-primary text-sm font-bold hover:scale-105 transition-transform">
-<span class="material-symbols-outlined text-lg" data-icon="favorite">favorite</span>
-<span>24</span>
-</button>
-<button class="flex items-center gap-2 text-secondary text-sm font-bold hover:scale-105 transition-transform">
-<span class="material-symbols-outlined text-lg" data-icon="potted_plant">potted_plant</span>
-<span>Grow Idea</span>
-</button>
-</div>
-</div>
-<!-- Feed Item 2 -->
-<div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_12px_24px_rgba(44,62,107,0.06)] hover:translate-y-[-4px] transition-transform duration-300">
-<div class="flex justify-between items-start mb-4">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
-<img alt="Feed Avatar" data-alt="Profile of a man with thoughtful expression, natural warm light, bokeh background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcUkgPq1mBr834wOUrk65lYa319k63TmYrsENibm5eYF7TqsvrqsVdjTsGGT9Noj2KVy6pcetDsAAqTsBzoljsC_jOsv0ZVAsnlaiVz1PcI7pD-mZDIvPD-e_kV8l6IVmDVV4srDKV1slPwtgT418ggNWL1OVk3HsCok_r1Q510r0m-8XKoorShD6EOVDf2fG4DC6mfzuDXJh8dCcI0r_42NOXumT4Sf5pZYy6iMZ3g4PVBU0H4vklzBj57xMG_nvFQAU4qLIXsF3T"/>
-</div>
-<div>
-<h4 class="font-bold leading-none">David Kim</h4>
-<p class="text-xs opacity-50 mt-1">5 hours ago</p>
-</div>
-</div>
-<span class="bg-tertiary-container/10 text-tertiary-container px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tight">Achievement</span>
-</div>
-<h5 class="text-lg font-bold mb-2">Automated Data Cleanliness Milestone</h5>
-<p class="text-[#2C3E6B]/70 text-sm leading-relaxed mb-6">
-                            We just reached 99.8% accuracy in our automated labeling sprint. Huge thanks to the QA members who audited the edge cases!
-                        </p>
-<div class="flex items-center gap-6 pt-4 border-t border-surface-container">
-<button class="flex items-center gap-2 text-primary text-sm font-bold hover:scale-105 transition-transform">
-<span class="material-symbols-outlined text-lg filled-icon" data-icon="thumb_up">thumb_up</span>
-<span>18</span>
-</button>
-<button class="flex items-center gap-2 text-secondary text-sm font-bold hover:scale-105 transition-transform">
-<span class="material-symbols-outlined text-lg" data-icon="chat_bubble">chat_bubble</span>
-<span>8 comments</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+<main class="max-w-7xl mx-auto px-6 py-8 space-y-6">
+
+  <!-- Row 1: 委員分掌 + KPI -->
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+
+    <!-- 委員分掌 -->
+    <div class="bg-white rounded-2xl p-5 border border-border shadow-sm">
+      <p class="text-xs font-bold text-navy/40 uppercase tracking-widest mb-3">委員分掌</p>
+      <ul class="space-y-2 text-sm" id="bunshoCont">
+        <li class="flex justify-between"><span class="font-bold">委員長</span><span class="text-navy/60">高木 結生</span></li>
+        <li class="flex justify-between"><span class="font-bold">副委員長</span><span class="text-navy/60">———</span></li>
+        <li class="flex justify-between"><span class="font-bold">研修担当</span><span class="text-navy/60">———</span></li>
+        <li class="flex justify-between"><span class="font-bold">記録担当</span><span class="text-navy/60">———</span></li>
+      </ul>
+    </div>
+
+    <!-- KPI ×3 -->
+    <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col items-center justify-center">
+      <p class="text-xs font-bold text-navy/40 uppercase tracking-widest mb-2">KPI進捗①</p>
+      <p class="text-4xl font-extrabold text-peach" id="kpi1">—%</p>
+      <p class="text-xs text-navy/40 mt-1">AI活用提案件数</p>
+    </div>
+    <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col items-center justify-center">
+      <p class="text-xs font-bold text-navy/40 uppercase tracking-widest mb-2">KPI進捗②</p>
+      <p class="text-4xl font-extrabold text-peach" id="kpi2">—%</p>
+      <p class="text-xs text-navy/40 mt-1">研修参加率</p>
+    </div>
+    <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col items-center justify-center">
+      <p class="text-xs font-bold text-navy/40 uppercase tracking-widest mb-2">KPI進捗③</p>
+      <p class="text-4xl font-extrabold text-peach" id="kpi3">—%</p>
+      <p class="text-xs text-navy/40 mt-1">ツール習得レベル達成率</p>
+    </div>
+  </div>
+
+  <!-- Row 2: AI進捗状況 -->
+  <div class="bg-white rounded-2xl p-5 border border-border shadow-sm">
+    <p class="text-xs font-bold text-navy/40 uppercase tracking-widest mb-4">AI進捗状況</p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="aiProgressGrid">
+
+      <!-- AI基礎 -->
+      <div class="bg-muted rounded-xl p-4">
+        <p class="font-extrabold text-sm text-navy mb-3">AI基礎</p>
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs">
+            <span class="text-navy/60">レベル１</span>
+            <span class="font-bold" data-tool="ai" data-lv="1">— 人</span>
+          </div>
+          <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="ai-1"></div></div>
+          <div class="flex justify-between text-xs">
+            <span class="text-navy/60">レベル２</span>
+            <span class="font-bold" data-tool="ai" data-lv="2">— 人</span>
+          </div>
+          <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="ai-2"></div></div>
+          <div class="flex justify-between text-xs">
+            <span class="text-navy/60">レベル３</span>
+            <span class="font-bold" data-tool="ai" data-lv="3">— 人</span>
+          </div>
+          <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="ai-3"></div></div>
+        </div>
+      </div>
+
+      <!-- Google Workspace -->
+      <div class="bg-muted rounded-xl p-4">
+        <p class="font-extrabold text-sm text-navy mb-3">Google Workspace</p>
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs">
+            <span class="text-navy/60">レベル１</span>
+            <span class="font-bold" data-tool="gws" data-lv="1">— 人</span>
+          </div>
+          <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="gws-1"></div></div>
+          <div class="flex justify-between text-xs">
+            <span class="text-navy/60">レベル２</span>
+            <span class="font-bold" data-tool="gws" data-lv="2">— 人</span>
+          </div>
+          <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="gws-2"></div></div>
+          <div class="flex justify-between text-xs">
+            <span class="text-navy/60">レベル３</span>
+            <span class="font-bold" data-tool="gws" data-lv="3">— 人</span>
+          </div>
+          <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="gws-3"></div></div>
+        </div>
+      </div>
+
+      <!-- Canva -->
+      <div class="bg-muted rounded-xl p-4">
+        <p class="font-extrabold text-sm text-navy mb-3">Canva</p>
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs">
+            <span class="text-navy/60">レベル１</span>
+            <span class="font-bold" data-tool="canva" data-lv="1">— 人</span>
+          </div>
+          <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="canva-1"></div></div>
+          <div class="flex justify-between text-xs">
+            <span class="text-navy/60">レベル２</span>
+            <span class="font-bold" data-tool="canva" data-lv="2">— 人</span>
+          </div>
+          <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="canva-2"></div></div>
+          <div class="flex justify-between text-xs">
+            <span class="text-navy/60">レベル３</span>
+            <span class="font-bold" data-tool="canva" data-lv="3">— 人</span>
+          </div>
+          <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="canva-3"></div></div>
+        </div>
+      </div>
+
+      <!-- Genspark -->
+      <div class="bg-muted rounded-xl p-4">
+        <p class="font-extrabold text-sm text-navy mb-3">Genspark</p>
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs">
+            <span class="text-navy/60">レベル１</span>
+            <span class="font-bold" data-tool="gs" data-lv="1">— 人</span>
+          </div>
+          <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="gs-1"></div></div>
+          <div class="flex justify-between text-xs">
+            <span class="text-navy/60">レベル２</span>
+            <span class="font-bold" data-tool="gs" data-lv="2">— 人</span>
+          </div>
+          <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="gs-2"></div></div>
+          <div class="flex justify-between text-xs">
+            <span class="text-navy/60">レベル３</span>
+            <span class="font-bold" data-tool="gs" data-lv="3">— 人</span>
+          </div>
+          <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="gs-3"></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Row 3: 部門長より + 掲示板 + AI100本ノック -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+    <!-- 部門長より -->
+    <div class="lg:col-span-3 bg-navy text-white rounded-2xl p-5 flex flex-col gap-4">
+      <p class="text-xs font-bold text-white/50 uppercase tracking-widest">部門長より</p>
+      <p class="text-sm leading-relaxed flex-1" id="deptMsg">
+        （メッセージは管理者が更新します）
+      </p>
+      <p class="text-xs text-white/40 text-right" id="deptMsgDate">——</p>
+    </div>
+
+    <!-- 掲示板 -->
+    <div class="lg:col-span-6 bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
+      <p class="text-xs font-bold text-navy/40 uppercase tracking-widest mb-4">掲示板 / 委員間の共有事項</p>
+
+      <div class="space-y-3 flex-1 overflow-y-auto max-h-72" id="bulletinBoard">
+
+        <!-- Post テンプレート（JSで動的追加） -->
+        <div class="bg-muted rounded-xl p-4">
+          <div class="flex justify-between items-start mb-1">
+            <span class="text-xs font-bold text-navy">サンプル投稿</span>
+            <span class="text-xs text-navy/40">2026-04-01</span>
+          </div>
+          <p class="text-sm text-navy/80 mb-3">ここに共有事項が表示されます。GAS連携後にスプレッドシートから自動取得します。</p>
+          <div class="flex gap-2 flex-wrap" data-post-id="sample">
+            <button onclick="react(this,'👍')" class="reaction-btn flex items-center gap-1 text-xs bg-muted border border-border rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">
+              <span>👍</span><span class="count">0</span>
+            </button>
+            <button onclick="react(this,'💡')" class="reaction-btn flex items-center gap-1 text-xs bg-muted border border-border rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">
+              <span>💡</span><span class="count">0</span>
+            </button>
+            <button onclick="react(this,'🔥')" class="reaction-btn flex items-center gap-1 text-xs bg-muted border border-border rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">
+              <span>🔥</span><span class="count">0</span>
+            </button>
+            <button onclick="react(this,'🙌')" class="reaction-btn flex items-center gap-1 text-xs bg-muted border border-border rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">
+              <span>🙌</span><span class="count">0</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- AI100本ノック -->
+    <div class="lg:col-span-3 bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col gap-4">
+      <div>
+        <p class="text-xs font-bold text-navy/40 uppercase tracking-widest mb-1">AI 100本ノック</p>
+        <div class="flex items-end gap-2">
+          <span class="text-4xl font-extrabold text-navy" id="knockCount">—</span>
+          <span class="text-sm text-navy/40 mb-1">/ 100 本</span>
+        </div>
+        <div class="level-bar mt-2">
+          <div class="level-fill" id="knockBar" style="width:0%"></div>
+        </div>
+      </div>
+
+      <p class="text-xs text-navy/60 leading-relaxed">
+        挑戦した数だけ力になる。毎日1本、続けていこう。
+      </p>
+
+      <!-- 挑戦するボタン -->
+      <button
+        id="challengeBtn"
+        onclick="handleChallenge()"
+        class="w-full bg-peach text-white font-extrabold py-3 rounded-xl hover:bg-orange-500 active:scale-95 transition-all shadow-sm text-sm">
+        🔥 挑戦する
+      </button>
+
+      <!-- 次のレベルへボタン -->
+      <button
+        id="nextLevelBtn"
+        onclick="handleNextLevel()"
+        class="w-full bg-navy text-white font-extrabold py-3 rounded-xl hover:bg-blue-900 active:scale-95 transition-all shadow-sm text-sm">
+        ⬆️ 次のレベルへ
+      </button>
+
+      <p class="text-xs text-navy/30 text-center">レベルアップは管理者が承認します</p>
+    </div>
+
+  </div>
 </main>
-<!-- Floating Action Button -->
-<button class="fixed bottom-10 right-10 bg-gradient-to-br from-primary to-primary-container text-white px-8 py-4 rounded-full shadow-[0_12px_24px_rgba(149,73,40,0.3)] hover:scale-105 active:scale-95 transition-all flex items-center gap-3 z-40 group">
-<span class="material-symbols-outlined text-2xl" data-icon="add_circle">add_circle</span>
-<span class="font-bold tracking-tight">Submit Idea</span>
-</button>
-</body></html>
+
+<!-- Toast通知 -->
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-navy text-white text-sm font-bold px-6 py-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none z-50">
+  メッセージ
+</div>
+
+<script>
+// ── リアクション機能 ──────────────────────────────
+function react(btn, emoji) {
+  const postEl = btn.closest('[data-post-id]');
+  const postId = postEl ? postEl.dataset.postId : 'unknown';
+  const storageKey = `reaction_${postId}_${emoji}`;
+
+  const countEl = btn.querySelector('.count');
+  const alreadyReacted = localStorage.getItem(storageKey);
+
+  if (alreadyReacted) {
+    // 取り消し
+    const newCount = Math.max(0, parseInt(countEl.textContent) - 1);
+    countEl.textContent = newCount;
+    btn.classList.remove('active');
+    localStorage.removeItem(storageKey);
+  } else {
+    // 追加
+    countEl.textContent = parseInt(countEl.textContent) + 1;
+    btn.classList.add('active');
+    localStorage.setItem(storageKey, '1');
+  }
+  // TODO: GAS連携後にサーバー側へ反映
+}
+
+// ── 挑戦するボタン ──────────────────────────────
+function handleChallenge() {
+  const btn = document.getElementById('challengeBtn');
+  btn.disabled = true;
+  btn.textContent = '✅ 記録しました！';
+  btn.classList.replace('bg-peach', 'bg-green-500');
+  showToast('挑戦を記録しました 🔥');
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.textContent = '🔥 挑戦する';
+    btn.classList.replace('bg-green-500', 'bg-peach');
+  }, 3000);
+  // TODO: GAS連携後にスプレッドシートへ記録
+}
+
+// ── 次のレベルへボタン ──────────────────────────────
+function handleNextLevel() {
+  const btn = document.getElementById('nextLevelBtn');
+  btn.disabled = true;
+  btn.textContent = '📩 申請しました';
+  btn.classList.replace('bg-navy', 'bg-gray-400');
+  showToast('レベルアップ申請を送りました ⬆️');
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.textContent = '⬆️ 次のレベルへ';
+    btn.classList.replace('bg-gray-400', 'bg-navy');
+  }, 5000);
+  // TODO: GAS連携後に申請をスプレッドシートへ記録
+}
+
+// ── Toast ──────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.opacity = '1';
+  setTimeout(() => { t.style.opacity = '0'; }, 2500);
+}
+
+// ── ページロード時にlocalStorageのリアクション状態を復元 ──
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-post-id]').forEach(postEl => {
+    const postId = postEl.dataset.postId;
+    postEl.querySelectorAll('.reaction-btn').forEach(btn => {
+      const emoji = btn.querySelector('span:first-child').textContent;
+      const storageKey = `reaction_${postId}_${emoji}`;
+      if (localStorage.getItem(storageKey)) {
+        btn.classList.add('active');
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>
