@@ -70,17 +70,17 @@
     <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col items-center justify-center">
       <p class="text-base font-extrabold text-navy mb-2">KPI進捗①</p>
       <p class="text-4xl font-extrabold text-peach" id="kpi1">—%</p>
-      <p class="text-xs text-navy/40 mt-1">AI活用提案件数</p>
+      <p class="text-xs text-navy/40 mt-1" id="kpi1Label">AI活用提案件数</p>
     </div>
     <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col items-center justify-center">
       <p class="text-base font-extrabold text-navy mb-2">KPI進捗②</p>
       <p class="text-4xl font-extrabold text-peach" id="kpi2">—%</p>
-      <p class="text-xs text-navy/40 mt-1">研修参加率</p>
+      <p class="text-xs text-navy/40 mt-1" id="kpi2Label">研修参加率</p>
     </div>
     <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col items-center justify-center">
       <p class="text-base font-extrabold text-navy mb-2">KPI進捗③</p>
       <p class="text-4xl font-extrabold text-peach" id="kpi3">—%</p>
-      <p class="text-xs text-navy/40 mt-1">ツール習得レベル達成率</p>
+      <p class="text-xs text-navy/40 mt-1" id="kpi3Label">ツール習得レベル達成率</p>
     </div>
   </div>
 
@@ -302,6 +302,9 @@ async function loadDashboard() {
     document.getElementById('kpi1').textContent = data.kpi.kpi1.value + '%';
     document.getElementById('kpi2').textContent = data.kpi.kpi2.value + '%';
     document.getElementById('kpi3').textContent = data.kpi.kpi3.value + '%';
+    document.getElementById('kpi1Label').textContent = data.kpi.kpi1.label;
+    document.getElementById('kpi2Label').textContent = data.kpi.kpi2.label;
+    document.getElementById('kpi3Label').textContent = data.kpi.kpi3.label;
 
     // 部門長メッセージ
     document.getElementById('deptMsg').textContent = data.deptMessage.text || '';
