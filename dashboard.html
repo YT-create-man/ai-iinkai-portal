@@ -277,28 +277,96 @@
 </div>
 
 <script>
-// ── リアクション機能 ──────────────────────────────
-function react(btn, emoji) {
-  const postEl = btn.closest('[data-post-id]');
-  const postId = postEl ? postEl.dataset.postId : 'unknown';
-  const storageKey = `reaction_${postId}_${emoji}`;
+const API_URL = 'https://script.google.com/macros/s/AKfycbymvQ_2BrLEHmU7FPgD6fjMUxtNz42f30F1JdVIZy9EL0vj4wPF-0cEUoGu7G6o_WSn/exec';
 
+// ── データ取得・表示 ──────────────────────────────
+async function loadDashboard() {
+  try {
+    const res = await fetch(API_URL + '?action=dashboard');
+    const data = await res.json();
+    if (data.status !== 'ok') return;
+
+    const total = data.totalMembers;
+
+    // AI進捗グリッド
+    const tools = ['ai', 'gws', 'canva', 'gs'];
+    tools.forEach(tool => {
+      [1, 2, 3].forEach(lv => {
+        const countEl = document.querySelector(`[data-tool="${tool}"][data-lv="${lv}"]`);
+        if (countEl) countEl.textContent = data.progress[tool]['lv' + lv] + ' 人';
+        const barEl = document.querySelector(`[data-bar="${tool}-${lv}"]`);
+        if (barEl) barEl.style.width = (total > 0 ? Math.round(data.progress[tool]['lv' + lv] / total * 100) : 0) + '%';
+      });
+    });
+
+    // KPI
+    document.getElementById('kpi1').textContent = data.kpi.kpi1.value + '%';
+    document.getElementById('kpi2').textContent = data.kpi.kpi2.value + '%';
+    document.getElementById('kpi3').textContent = data.kpi.kpi3.value + '%';
+
+    // 部門長メッセージ
+    document.getElementById('deptMsg').textContent = data.deptMessage.text || '';
+    const msgDate = data.deptMessage.date;
+    document.getElementById('deptMsgDate').textContent = msgDate ? new Date(msgDate).toLocaleDateString('ja-JP') : '——';
+
+    // 掲示板
+    const board = document.getElementById('bulletinBoard');
+    board.innerHTML = '';
+    const emojiMap = { thumbsup: '👍', bulb: '💡', fire: '🔥', raised: '🙌' };
+    data.posts.forEach(post => {
+      const postDate = post.date ? new Date(post.date).toLocaleDateString('ja-JP') : '';
+      const reactionsHtml = Object.entries(emojiMap).map(([key, em]) =>
+        `<button onclick="react(this,'${key}','${post.id}')" class="reaction-btn flex items-center gap-1 text-xs bg-muted border border-border rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">
+          <span>${em}</span><span class="count">${post.reactions[key]}</span>
+        </button>`
+      ).join('');
+      board.innerHTML += `
+        <div class="bg-muted rounded-xl p-4" data-post-id="${post.id}">
+          <div class="flex justify-between items-start mb-1">
+            <span class="text-xs font-bold text-navy">${post.author}</span>
+            <span class="text-xs text-navy/40">${postDate}</span>
+          </div>
+          <p class="text-sm text-navy/80 mb-3">${post.content}</p>
+          <div class="flex gap-2 flex-wrap">${reactionsHtml}</div>
+        </div>`;
+    });
+
+    // 100本ノック
+    document.getElementById('knockCount').textContent = data.knockTotal;
+    document.getElementById('knockBar').style.width = Math.min(100, data.knockTotal) + '%';
+
+    // リアクション状態の復元
+    document.querySelectorAll('[data-post-id]').forEach(postEl => {
+      const postId = postEl.dataset.postId;
+      postEl.querySelectorAll('.reaction-btn').forEach(btn => {
+        const emoji = btn.querySelector('span:first-child').textContent;
+        const storageKey = `reaction_${postId}_${emoji}`;
+        if (localStorage.getItem(storageKey)) btn.classList.add('active');
+      });
+    });
+  } catch (e) {
+    console.error('Dashboard load error:', e);
+  }
+}
+
+// ── リアクション機能 ──────────────────────────────
+function react(btn, emojiKey, postId) {
+  const storageKey = `reaction_${postId}_${emojiKey}`;
   const countEl = btn.querySelector('.count');
   const alreadyReacted = localStorage.getItem(storageKey);
+  const delta = alreadyReacted ? -1 : 1;
+
+  const newCount = Math.max(0, parseInt(countEl.textContent) + delta);
+  countEl.textContent = newCount;
+  btn.classList.toggle('active');
 
   if (alreadyReacted) {
-    // 取り消し
-    const newCount = Math.max(0, parseInt(countEl.textContent) - 1);
-    countEl.textContent = newCount;
-    btn.classList.remove('active');
     localStorage.removeItem(storageKey);
   } else {
-    // 追加
-    countEl.textContent = parseInt(countEl.textContent) + 1;
-    btn.classList.add('active');
     localStorage.setItem(storageKey, '1');
   }
-  // TODO: GAS連携後にサーバー側へ反映
+
+  fetch(`${API_URL}?action=react&postId=${encodeURIComponent(postId)}&emoji=${emojiKey}&delta=${delta}`).catch(() => {});
 }
 
 // ── 挑戦するボタン ──────────────────────────────
@@ -308,12 +376,14 @@ function handleChallenge() {
   btn.textContent = '✅ 記録しました！';
   btn.classList.replace('bg-peach', 'bg-green-500');
   showToast('挑戦を記録しました 🔥');
+
+  fetch(`${API_URL}?action=challenge&name=&product=AI基礎`).catch(() => {});
+
   setTimeout(() => {
     btn.disabled = false;
     btn.textContent = '🔥 挑戦する';
     btn.classList.replace('bg-green-500', 'bg-peach');
   }, 3000);
-  // TODO: GAS連携後にスプレッドシートへ記録
 }
 
 // ── 次のレベルへボタン ──────────────────────────────
@@ -323,12 +393,14 @@ function handleNextLevel() {
   btn.textContent = '📩 申請しました';
   btn.classList.replace('bg-navy', 'bg-gray-400');
   showToast('レベルアップ申請を送りました ⬆️');
+
+  fetch(`${API_URL}?action=levelup&name=&product=AI基礎`).catch(() => {});
+
   setTimeout(() => {
     btn.disabled = false;
     btn.textContent = '⬆️ 次のレベルへ';
     btn.classList.replace('bg-gray-400', 'bg-navy');
   }, 5000);
-  // TODO: GAS連携後に申請をスプレッドシートへ記録
 }
 
 // ── Toast ──────────────────────────────
@@ -339,19 +411,8 @@ function showToast(msg) {
   setTimeout(() => { t.style.opacity = '0'; }, 2500);
 }
 
-// ── ページロード時にlocalStorageのリアクション状態を復元 ──
-window.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('[data-post-id]').forEach(postEl => {
-    const postId = postEl.dataset.postId;
-    postEl.querySelectorAll('.reaction-btn').forEach(btn => {
-      const emoji = btn.querySelector('span:first-child').textContent;
-      const storageKey = `reaction_${postId}_${emoji}`;
-      if (localStorage.getItem(storageKey)) {
-        btn.classList.add('active');
-      }
-    });
-  });
-});
+// ── ページロード時にデータ取得 ──
+window.addEventListener('DOMContentLoaded', loadDashboard);
 </script>
 
 </body>
