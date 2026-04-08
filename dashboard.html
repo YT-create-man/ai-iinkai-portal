@@ -83,112 +83,77 @@
 
   <!-- Row 2: AI進捗状況 -->
   <div class="bg-white rounded-2xl p-5 border border-border shadow-sm">
-    <p class="text-base font-extrabold text-navy mb-4">AI進捗状況</p>
+    <div class="flex items-center justify-between mb-4">
+      <p class="text-base font-extrabold text-navy">AI進捗状況</p>
+      <button onclick="openLevelupModal('ai','AI基礎')" id="sectionLevelupBtn" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-4 py-1.5 hover:bg-peach/10 transition-colors">⬆️ 次のレベルを申請する</button>
+    </div>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="aiProgressGrid">
 
       <!-- AI基礎 -->
-      <div class="bg-muted rounded-xl p-4">
+      <div class="bg-muted rounded-xl p-4 flex flex-col">
         <p class="font-extrabold text-sm text-navy mb-3">AI基礎</p>
-        <div class="space-y-2">
-          <div class="flex justify-between text-xs">
-            <span class="text-navy/60">レベル１</span>
-            <span class="font-bold" data-tool="ai" data-lv="1">— 人</span>
-          </div>
+        <div class="space-y-2 flex-1">
+          <div class="flex justify-between text-xs"><span class="text-navy/60">レベル１</span><span class="font-bold" data-tool="ai" data-lv="1">— 人</span></div>
           <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="ai-1"></div></div>
-          <div class="flex justify-between text-xs">
-            <span class="text-navy/60">レベル２</span>
-            <span class="font-bold" data-tool="ai" data-lv="2">— 人</span>
-          </div>
+          <div class="flex justify-between text-xs"><span class="text-navy/60">レベル２</span><span class="font-bold" data-tool="ai" data-lv="2">— 人</span></div>
           <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="ai-2"></div></div>
-          <div class="flex justify-between text-xs">
-            <span class="text-navy/60">レベル３</span>
-            <span class="font-bold" data-tool="ai" data-lv="3">— 人</span>
-          </div>
+          <div class="flex justify-between text-xs"><span class="text-navy/60">レベル３</span><span class="font-bold" data-tool="ai" data-lv="3">— 人</span></div>
           <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="ai-3"></div></div>
         </div>
-        <a
-          href="https://script.google.com/macros/s/AKfycbzGdKMKyWJ-WEibJioDVnUUOwjHl5kL5ErPeSAl-MWLx07NLJRVZ6u3PIoaljVBJDp6cg/exec"
-          target="_blank"
+        <a href="https://script.google.com/macros/s/AKfycbzGdKMKyWJ-WEibJioDVnUUOwjHl5kL5ErPeSAl-MWLx07NLJRVZ6u3PIoaljVBJDp6cg/exec" target="_blank"
           class="block w-full bg-green-600 text-white font-bold py-2 rounded-lg hover:bg-green-700 active:scale-95 transition-all text-xs text-center mt-3">
           📝 今日のクイズを受ける
         </a>
-        <button onclick="openLevelupModal('ai','AI基礎')" class="w-full bg-navy/10 text-navy font-bold py-2 rounded-lg hover:bg-navy/20 active:scale-95 transition-all text-xs mt-2">
-          ⬆️ 次のレベルを申請する
+        <button onclick="openRequirements('ai')" class="w-full bg-white text-navy/60 font-bold py-2 rounded-lg border border-border hover:bg-muted active:scale-95 transition-all text-xs mt-2">
+          📋 レベルアップ要件書
         </button>
       </div>
 
       <!-- Google Workspace -->
-      <div class="bg-muted rounded-xl p-4">
+      <div class="bg-muted rounded-xl p-4 flex flex-col">
         <p class="font-extrabold text-sm text-navy mb-3">Google Workspace</p>
-        <div class="space-y-2">
-          <div class="flex justify-between text-xs">
-            <span class="text-navy/60">レベル１</span>
-            <span class="font-bold" data-tool="gws" data-lv="1">— 人</span>
-          </div>
+        <div class="space-y-2 flex-1">
+          <div class="flex justify-between text-xs"><span class="text-navy/60">レベル１</span><span class="font-bold" data-tool="gws" data-lv="1">— 人</span></div>
           <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="gws-1"></div></div>
-          <div class="flex justify-between text-xs">
-            <span class="text-navy/60">レベル２</span>
-            <span class="font-bold" data-tool="gws" data-lv="2">— 人</span>
-          </div>
+          <div class="flex justify-between text-xs"><span class="text-navy/60">レベル２</span><span class="font-bold" data-tool="gws" data-lv="2">— 人</span></div>
           <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="gws-2"></div></div>
-          <div class="flex justify-between text-xs">
-            <span class="text-navy/60">レベル３</span>
-            <span class="font-bold" data-tool="gws" data-lv="3">— 人</span>
-          </div>
+          <div class="flex justify-between text-xs"><span class="text-navy/60">レベル３</span><span class="font-bold" data-tool="gws" data-lv="3">— 人</span></div>
           <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="gws-3"></div></div>
         </div>
-        <button onclick="openLevelupModal('gws','Google Workspace')" class="w-full bg-navy/10 text-navy font-bold py-2 rounded-lg hover:bg-navy/20 active:scale-95 transition-all text-xs mt-3">
-          ⬆️ 次のレベルを申請する
+        <button onclick="openRequirements('gws')" class="w-full bg-white text-navy/60 font-bold py-2 rounded-lg border border-border hover:bg-muted active:scale-95 transition-all text-xs mt-3">
+          📋 レベルアップ要件書
         </button>
       </div>
 
       <!-- Canva -->
-      <div class="bg-muted rounded-xl p-4">
+      <div class="bg-muted rounded-xl p-4 flex flex-col">
         <p class="font-extrabold text-sm text-navy mb-3">Canva</p>
-        <div class="space-y-2">
-          <div class="flex justify-between text-xs">
-            <span class="text-navy/60">レベル１</span>
-            <span class="font-bold" data-tool="canva" data-lv="1">— 人</span>
-          </div>
+        <div class="space-y-2 flex-1">
+          <div class="flex justify-between text-xs"><span class="text-navy/60">レベル１</span><span class="font-bold" data-tool="canva" data-lv="1">— 人</span></div>
           <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="canva-1"></div></div>
-          <div class="flex justify-between text-xs">
-            <span class="text-navy/60">レベル２</span>
-            <span class="font-bold" data-tool="canva" data-lv="2">— 人</span>
-          </div>
+          <div class="flex justify-between text-xs"><span class="text-navy/60">レベル２</span><span class="font-bold" data-tool="canva" data-lv="2">— 人</span></div>
           <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="canva-2"></div></div>
-          <div class="flex justify-between text-xs">
-            <span class="text-navy/60">レベル３</span>
-            <span class="font-bold" data-tool="canva" data-lv="3">— 人</span>
-          </div>
+          <div class="flex justify-between text-xs"><span class="text-navy/60">レベル３</span><span class="font-bold" data-tool="canva" data-lv="3">— 人</span></div>
           <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="canva-3"></div></div>
         </div>
-        <button onclick="openLevelupModal('canva','Canva')" class="w-full bg-navy/10 text-navy font-bold py-2 rounded-lg hover:bg-navy/20 active:scale-95 transition-all text-xs mt-3">
-          ⬆️ 次のレベルを申請する
+        <button onclick="openRequirements('canva')" class="w-full bg-white text-navy/60 font-bold py-2 rounded-lg border border-border hover:bg-muted active:scale-95 transition-all text-xs mt-3">
+          📋 レベルアップ要件書
         </button>
       </div>
 
       <!-- Genspark -->
-      <div class="bg-muted rounded-xl p-4">
+      <div class="bg-muted rounded-xl p-4 flex flex-col">
         <p class="font-extrabold text-sm text-navy mb-3">Genspark</p>
-        <div class="space-y-2">
-          <div class="flex justify-between text-xs">
-            <span class="text-navy/60">レベル１</span>
-            <span class="font-bold" data-tool="gs" data-lv="1">— 人</span>
-          </div>
+        <div class="space-y-2 flex-1">
+          <div class="flex justify-between text-xs"><span class="text-navy/60">レベル１</span><span class="font-bold" data-tool="gs" data-lv="1">— 人</span></div>
           <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="gs-1"></div></div>
-          <div class="flex justify-between text-xs">
-            <span class="text-navy/60">レベル２</span>
-            <span class="font-bold" data-tool="gs" data-lv="2">— 人</span>
-          </div>
+          <div class="flex justify-between text-xs"><span class="text-navy/60">レベル２</span><span class="font-bold" data-tool="gs" data-lv="2">— 人</span></div>
           <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="gs-2"></div></div>
-          <div class="flex justify-between text-xs">
-            <span class="text-navy/60">レベル３</span>
-            <span class="font-bold" data-tool="gs" data-lv="3">— 人</span>
-          </div>
+          <div class="flex justify-between text-xs"><span class="text-navy/60">レベル３</span><span class="font-bold" data-tool="gs" data-lv="3">— 人</span></div>
           <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="gs-3"></div></div>
         </div>
-        <button onclick="openLevelupModal('gs','Genspark')" class="w-full bg-navy/10 text-navy font-bold py-2 rounded-lg hover:bg-navy/20 active:scale-95 transition-all text-xs mt-3">
-          ⬆️ 次のレベルを申請する
+        <button onclick="openRequirements('gs')" class="w-full bg-white text-navy/60 font-bold py-2 rounded-lg border border-border hover:bg-muted active:scale-95 transition-all text-xs mt-3">
+          📋 レベルアップ要件書
         </button>
       </div>
 
@@ -311,6 +276,29 @@
   </div>
 
 </main>
+
+<!-- レベルアップ要件書モーダル -->
+<div id="reqModal" class="fixed inset-0 bg-navy/40 z-50 flex items-center justify-center hidden" onclick="if(event.target===this)closeReq()">
+  <div class="bg-white rounded-2xl w-full max-w-lg mx-4 shadow-xl max-h-[88vh] flex flex-col">
+    <div class="flex items-center justify-between px-6 pt-5 pb-3 border-b border-border">
+      <p class="text-base font-extrabold text-navy" id="reqTitle">レベルアップ要件書</p>
+      <button onclick="closeReq()" class="text-navy/40 hover:text-navy text-xl leading-none">✕</button>
+    </div>
+    <!-- タブ -->
+    <div class="flex border-b border-border px-6">
+      <button onclick="switchReqTab(1)" id="reqTab1" class="req-tab text-xs font-bold py-2 px-3 border-b-2 border-peach text-peach">Lv1「知る」</button>
+      <button onclick="switchReqTab(2)" id="reqTab2" class="req-tab text-xs font-bold py-2 px-3 border-b-2 border-transparent text-navy/40 hover:text-navy">Lv2</button>
+      <button onclick="switchReqTab(3)" id="reqTab3" class="req-tab text-xs font-bold py-2 px-3 border-b-2 border-transparent text-navy/40 hover:text-navy">Lv3</button>
+    </div>
+    <div class="overflow-y-auto flex-1 px-6 py-4 space-y-3 text-sm text-navy" id="reqContent"></div>
+    <div class="px-6 pb-5 pt-3">
+      <button onclick="closeReq();openLevelupModal(window._reqTool, document.getElementById('reqTitle').textContent.replace(' レベルアップ要件書',''))"
+        class="w-full bg-navy text-white font-extrabold py-3 rounded-xl hover:bg-blue-900 active:scale-95 transition-all text-sm">
+        ⬆️ このツールで申請する
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- レベルアップ申請モーダル -->
 <div id="levelupModal" class="fixed inset-0 bg-navy/40 z-50 flex items-center justify-center hidden" onclick="handleLevelupBackdrop(event)">
@@ -498,6 +486,135 @@ function handleChallenge() {
     btn.textContent = '🔥 挑戦する';
     btn.classList.replace('bg-green-500', 'bg-peach');
   }, 3000);
+}
+
+// ── 要件書定義（定義書ベース） ────────────────────────────
+const REQUIREMENTS = {
+  ai: {
+    label: 'AI基礎',
+    levels: {
+      1: { name: '知る', def: 'AIとは何かを説明でき、3つのプロダクトを実際に触って使ったことがある状態。', items: [
+        { title: 'テスト', content: 'AI基礎クイズ（20問）で2日連続70点以上合格' },
+        { title: '行動量', content: 'GWS・Canva・Gensparkをそれぞれ1回以上使った記録の提出' },
+        { title: '成果', content: '（レベル1は成果不問）' },
+      ]},
+      2: { name: '使う', def: '3つのプロダクトのうち少なくとも1つを自分の業務フローに組み込み、どこでどう使っているかを説明できる状態。', items: [
+        { title: 'テスト', content: 'AIを使って作成した業務資料・スライド・提案書、またはBefore/After形式の改善記録を提出' },
+        { title: '行動量', content: '対象プロダクトを4週間毎日使用したログを提出（挑戦ボタンで記録）' },
+        { title: '成果', content: '業務フローの中でAIを活用した箇所を1か所以上言語化して提出' },
+      ]},
+      3: { name: '届ける', def: 'AIを「自分が使えるもの」からお客様のLife&WorkStyleに届けられるものへ昇華できている状態。', items: [
+        { title: 'テスト', content: 'お茶の間ロープレ実施（AIを自然に提案する会話）' },
+        { title: '行動量', content: 'L&W または 商店主 でAI関連の提案を2件以上、2か月継続' },
+        { title: '成果', content: 'AI活用が組み込まれたL&W / 商店主のケースを1件以上提出' },
+      ]},
+    }
+  },
+  gws: {
+    label: 'Google Workspace',
+    levels: {
+      1: { name: '知る', def: 'GWSとGeminiで何ができるかを把握し、お客様の暮らしや仕事のどこに効くかをイメージできる状態。', items: [
+        { title: 'テスト', content: 'GWSリテラシークイズ合格' },
+        { title: '行動量', content: 'Geminiに業務関連の質問を5回以上した記録' },
+        { title: '成果', content: '（レベル1は成果不問）' },
+      ]},
+      2: { name: '届ける', def: 'お客様のL&W/商店主に対して、GWS活用を準備・設計した上で提案・実行できる状態。', items: [
+        { title: 'テスト', content: 'お茶の間ロープレ実施（事前準備ありの提案場面）' },
+        { title: '行動量', content: 'L&W/商店主でGWS関連の提案を2件以上実施' },
+        { title: '成果', content: '準備した提案をお客様に届けた記録を1件以上提出（提案内容＋お客様の反応）' },
+      ]},
+      3: { name: '広げる', def: 'お茶の間の会話の中で瞬時にGWS活用を提案・実演できる。成功事例を蓄積しBranchの底上げに貢献するエキスパート。', items: [
+        { title: 'テスト', content: 'お茶の間ロープレ実施（準備なし・即興の提案場面）' },
+        { title: '行動量', content: 'L&W/商店主でのGWS提案を月4件以上、3ヶ月継続' },
+        { title: '成果', content: 'GWS成功事例を3件以上Branch向けに共有済み' },
+      ]},
+    }
+  },
+  canva: {
+    label: 'Canva',
+    levels: {
+      1: { name: '知る', def: 'CanvaとそのAI機能で何ができるかを把握し、お客様の暮らしや仕事のどこに効くかをイメージできる状態。', items: [
+        { title: 'テスト', content: 'Canvaリテラシークイズ合格' },
+        { title: '行動量', content: 'Canvaで制作物を3つ以上作成した記録' },
+        { title: '成果', content: '（レベル1は成果不問）' },
+      ]},
+      2: { name: '届ける', def: 'お客様のL&W/商店主に対して、Canva活用を準備・設計した上で提案・実行できる状態。', items: [
+        { title: 'テスト', content: 'お茶の間ロープレ実施（事前準備ありの提案場面）' },
+        { title: '行動量', content: 'L&W/商店主でCanva関連の提案を2件以上実施' },
+        { title: '成果', content: 'お客様と一緒に制作物を完成させた記録を1件以上提出' },
+      ]},
+      3: { name: '広げる', def: 'お客様の会話から「それCanvaで作れますよ」と瞬時に提案・実演できる。成功事例を蓄積しBranchの底上げに貢献するエキスパート。', items: [
+        { title: 'テスト', content: 'お茶の間ロープレ実施（準備なし・即興の提案場面）' },
+        { title: '行動量', content: 'L&W/商店主でのCanva提案を月4件以上、3ヶ月継続' },
+        { title: '成果', content: '成功事例を3件以上提出、うち1件以上Branch向けに共有済み' },
+      ]},
+    }
+  },
+  gs: {
+    label: 'Genspark',
+    levels: {
+      1: { name: '知る', def: 'GensparkのAI検索で何ができるかを把握し、お客様の「調べたい」にどう応えられるかイメージできる状態。', items: [
+        { title: 'テスト', content: 'Gensparkリテラシークイズ合格' },
+        { title: '行動量', content: '業務の調べ物でGensparkを5回以上使った記録' },
+        { title: '成果', content: '（レベル1は成果不問）' },
+      ]},
+      2: { name: '届ける', def: 'お客様のL&W/商店主に対して、Gensparkを使った情報提供を準備・設計した上で届けられる状態。', items: [
+        { title: 'テスト', content: 'お茶の間ロープレ実施（事前準備ありの提案場面）' },
+        { title: '行動量', content: 'L&W/商店主でGenspark関連の提案を2件以上実施' },
+        { title: '成果', content: 'Gensparkを使ってお客様の疑問や課題を解決した記録を1件以上提出' },
+      ]},
+      3: { name: '広げる', def: 'お客様の会話から「それ今調べてみましょう」と瞬時にGensparkで検索・提示できる。成功事例を蓄積しBranchの底上げに貢献するエキスパート。', items: [
+        { title: 'テスト', content: 'お茶の間ロープレ実施（準備なし・即興の提案場面）' },
+        { title: '行動量', content: 'L&W/商店主でのGenspark提案を月3件以上、3ヶ月継続' },
+        { title: '成果', content: '成功事例を3件以上Branch向けに共有済み' },
+      ]},
+    }
+  }
+};
+
+let _reqCurrentTab = 1;
+
+function openRequirements(tool) {
+  window._reqTool = tool;
+  const req = REQUIREMENTS[tool];
+  document.getElementById('reqTitle').textContent = req.label + ' レベルアップ要件書';
+  // タブラベルを更新
+  [1,2,3].forEach(lv => {
+    const tab = document.getElementById('reqTab' + lv);
+    tab.textContent = 'Lv' + lv + '「' + req.levels[lv].name + '」';
+  });
+  switchReqTab(1);
+  document.getElementById('reqModal').classList.remove('hidden');
+}
+
+function closeReq() {
+  document.getElementById('reqModal').classList.add('hidden');
+}
+
+function switchReqTab(lv) {
+  _reqCurrentTab = lv;
+  [1,2,3].forEach(i => {
+    const tab = document.getElementById('reqTab' + i);
+    tab.classList.toggle('border-peach', i === lv);
+    tab.classList.toggle('text-peach', i === lv);
+    tab.classList.toggle('border-transparent', i !== lv);
+    tab.classList.toggle('text-navy/40', i !== lv);
+  });
+
+  const tool = window._reqTool;
+  const level = REQUIREMENTS[tool].levels[lv];
+  const content = document.getElementById('reqContent');
+  content.innerHTML = `
+    <div class="bg-peach/10 rounded-xl p-3 mb-1">
+      <p class="text-xs font-bold text-peach mb-1">定義</p>
+      <p class="text-xs text-navy">${level.def}</p>
+    </div>
+    ${level.items.map(item => `
+      <div class="bg-muted rounded-xl p-3">
+        <p class="text-xs font-bold text-navy/50 mb-1">${item.title}</p>
+        <p class="text-xs text-navy">${item.content}</p>
+      </div>`).join('')}
+  `;
 }
 
 // ── チェックリスト定義（定義書ベース） ──────────────────
