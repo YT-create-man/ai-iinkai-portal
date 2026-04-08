@@ -183,50 +183,61 @@
     </div>
   </div>
 
-  <!-- Row 3: 部門長より（横長）+ 委員間の共有事項 + AI100本ノック -->
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+  <!-- Row 3: 左（部門長より＋3部門） ＋ 右（AI100本ノック） -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
 
-    <!-- 部門長より（横長） -->
-    <div class="lg:col-span-6 bg-navy text-white rounded-2xl p-5 flex flex-col gap-4">
-      <p class="text-xs font-bold text-white/50 uppercase tracking-widest">部門長より</p>
-      <p class="text-sm leading-relaxed flex-1" id="deptMsg">
-        （メッセージは管理者が更新します）
-      </p>
-      <p class="text-xs text-white/40 text-right" id="deptMsgDate">——</p>
-    </div>
+    <!-- 左エリア: 部門長より → 3部門 縦積み -->
+    <div class="lg:col-span-9 flex flex-col gap-4">
 
-    <!-- 委員間の共有事項 -->
-    <div class="lg:col-span-3 bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
-      <div class="flex items-center justify-between mb-4">
-        <p class="text-base font-extrabold text-navy">委員間の共有事項</p>
-        <button onclick="openModal('shared')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ 投稿する</button>
+      <!-- 部門長より -->
+      <div class="bg-navy text-white rounded-2xl p-5 flex flex-col gap-4">
+        <p class="text-xs font-bold text-white/50 uppercase tracking-widest">部門長より</p>
+        <p class="text-sm leading-relaxed flex-1" id="deptMsg">
+          （メッセージは管理者が更新します）
+        </p>
+        <p class="text-xs text-white/40 text-right" id="deptMsgDate">——</p>
       </div>
-      <div class="space-y-3 flex-1 overflow-y-auto max-h-52" id="sharedBoard">
-        <div class="bg-muted rounded-xl p-4">
-          <div class="flex justify-between items-start mb-1">
-            <span class="text-xs font-bold text-navy">サンプル共有事項</span>
-            <span class="text-xs text-navy/40">2026-04-01</span>
+
+      <!-- 3部門ボックス -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <!-- Genspark部門より -->
+        <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
+          <div class="flex items-center justify-between mb-4">
+            <p class="text-base font-extrabold text-navy">Genspark部門より</p>
+            <button onclick="openToolComment('genspark')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ コメント追加</button>
           </div>
-          <p class="text-sm text-navy/80 mb-3">委員間で共有したい情報・連絡事項を掲載します。</p>
-          <div class="flex gap-2 flex-wrap" data-post-id="sample-shared">
-            <button onclick="react(this,'👍')" class="reaction-btn flex items-center gap-1 text-xs bg-muted border border-border rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">
-              <span>👍</span><span class="count">0</span>
-            </button>
-            <button onclick="react(this,'💡')" class="reaction-btn flex items-center gap-1 text-xs bg-muted border border-border rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">
-              <span>💡</span><span class="count">0</span>
-            </button>
-            <button onclick="react(this,'🔥')" class="reaction-btn flex items-center gap-1 text-xs bg-muted border border-border rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">
-              <span>🔥</span><span class="count">0</span>
-            </button>
-            <button onclick="react(this,'🙌')" class="reaction-btn flex items-center gap-1 text-xs bg-muted border border-border rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">
-              <span>🙌</span><span class="count">0</span>
-            </button>
+          <div class="space-y-2 flex-1 overflow-y-auto max-h-48" id="gensparkBoard">
+            <p class="text-sm text-navy/40 text-center py-4">コメントはまだありません</p>
           </div>
         </div>
+
+        <!-- GWSより -->
+        <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
+          <div class="flex items-center justify-between mb-4">
+            <p class="text-base font-extrabold text-navy">GWSより</p>
+            <button onclick="openToolComment('gws')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ コメント追加</button>
+          </div>
+          <div class="space-y-2 flex-1 overflow-y-auto max-h-48" id="gwsBoard">
+            <p class="text-sm text-navy/40 text-center py-4">コメントはまだありません</p>
+          </div>
+        </div>
+
+        <!-- Canvaより -->
+        <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
+          <div class="flex items-center justify-between mb-4">
+            <p class="text-base font-extrabold text-navy">Canvaより</p>
+            <button onclick="openToolComment('canva')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ コメント追加</button>
+          </div>
+          <div class="space-y-2 flex-1 overflow-y-auto max-h-48" id="canvaBoard">
+            <p class="text-sm text-navy/40 text-center py-4">コメントはまだありません</p>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- AI100本ノック -->
+    <!-- 右エリア: AI100本ノック -->
     <div class="lg:col-span-3 bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col gap-4">
       <div>
         <p class="text-base font-extrabold text-navy mb-1">AI 100本ノック</p>
@@ -261,44 +272,6 @@
       </button>
 
       <p class="text-xs text-navy/30 text-center">レベルアップは管理者が承認します</p>
-    </div>
-
-  </div>
-
-  <!-- Row 4: ツール別部門より -->
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-
-    <!-- Genspark部門より -->
-    <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
-      <div class="flex items-center justify-between mb-4">
-        <p class="text-base font-extrabold text-navy">Genspark部門より</p>
-        <button onclick="openToolComment('genspark')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ コメント追加</button>
-      </div>
-      <div class="space-y-2 flex-1 overflow-y-auto max-h-48" id="gensparkBoard">
-        <p class="text-sm text-navy/40 text-center py-4">コメントはまだありません</p>
-      </div>
-    </div>
-
-    <!-- GWSより -->
-    <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
-      <div class="flex items-center justify-between mb-4">
-        <p class="text-base font-extrabold text-navy">GWSより</p>
-        <button onclick="openToolComment('gws')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ コメント追加</button>
-      </div>
-      <div class="space-y-2 flex-1 overflow-y-auto max-h-48" id="gwsBoard">
-        <p class="text-sm text-navy/40 text-center py-4">コメントはまだありません</p>
-      </div>
-    </div>
-
-    <!-- Canvaより -->
-    <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
-      <div class="flex items-center justify-between mb-4">
-        <p class="text-base font-extrabold text-navy">Canvaより</p>
-        <button onclick="openToolComment('canva')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ コメント追加</button>
-      </div>
-      <div class="space-y-2 flex-1 overflow-y-auto max-h-48" id="canvaBoard">
-        <p class="text-sm text-navy/40 text-center py-4">コメントはまだありません</p>
-      </div>
     </div>
 
   </div>
