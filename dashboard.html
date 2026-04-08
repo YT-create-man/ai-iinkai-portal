@@ -838,7 +838,7 @@ async function submitLevelup() {
   try {
     const res = await fetch(API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({ action: 'levelup_apply', name, tool: levelupTool, targetLevel: level, checklist, files })
     });
     const data = await res.json();
@@ -909,10 +909,10 @@ function submitPost() {
         </div>
         <p class="text-sm text-navy/80">${content}</p>
       </div>`;
-    // GASに保存
+    // GASに保存（text/plainでCORSプリフライト回避）
     fetch(API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({ action: 'tool_comment', tool, name, content })
     }).catch(() => {});
     showToast('投稿しました！');
