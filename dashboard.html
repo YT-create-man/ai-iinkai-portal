@@ -189,10 +189,10 @@
           </div>
         </div>
 
-        <!-- GWSより -->
+        <!-- GWS部門より -->
         <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
           <div class="flex items-center justify-between mb-4">
-            <p class="text-base font-extrabold text-navy">GWSより</p>
+            <p class="text-base font-extrabold text-navy">GWS部門より</p>
             <button onclick="openToolComment('gws')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ コメント追加</button>
           </div>
           <div class="space-y-2 flex-1 overflow-y-auto max-h-48" id="gwsBoard">
@@ -200,10 +200,10 @@
           </div>
         </div>
 
-        <!-- Canvaより -->
+        <!-- Canva部門より -->
         <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
           <div class="flex items-center justify-between mb-4">
-            <p class="text-base font-extrabold text-navy">Canvaより</p>
+            <p class="text-base font-extrabold text-navy">Canva部門より</p>
             <button onclick="openToolComment('canva')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ コメント追加</button>
           </div>
           <div class="space-y-2 flex-1 overflow-y-auto max-h-48" id="canvaBoard">
@@ -850,7 +850,7 @@ function openModal(type) {
 }
 
 function openToolComment(tool) {
-  const labels = { genspark: 'Genspark部門より', gws: 'GWSより', canva: 'Canvaより' };
+  const labels = { genspark: 'Genspark部門より', gws: 'GWS部門より', canva: 'Canva部門より' };
   currentModalType = 'tool_' + tool;
   document.getElementById('modalTitle').textContent = labels[tool] + ' にコメントを追加';
   document.getElementById('postName').value = '';
