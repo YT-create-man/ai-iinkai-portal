@@ -314,28 +314,34 @@
 
 <!-- レベルアップ申請モーダル -->
 <div id="levelupModal" class="fixed inset-0 bg-navy/40 z-50 flex items-center justify-center hidden" onclick="handleLevelupBackdrop(event)">
-  <div class="bg-white rounded-2xl p-6 w-full max-w-md mx-4 shadow-xl">
+  <div class="bg-white rounded-2xl p-6 w-full max-w-lg mx-4 shadow-xl max-h-[90vh] overflow-y-auto">
     <div class="flex items-center justify-between mb-4">
       <p class="text-base font-extrabold text-navy" id="levelupTitle">レベルアップ申請</p>
       <button onclick="closeLevelupModal()" class="text-navy/40 hover:text-navy text-xl leading-none">✕</button>
     </div>
-    <div class="space-y-3">
+    <div class="space-y-4">
+      <!-- 名前（プルダウン） -->
       <div>
         <label class="text-xs font-bold text-navy/60 mb-1 block">名前</label>
-        <input id="levelupName" type="text" placeholder="あなたの名前" class="w-full border border-border rounded-xl px-4 py-2 text-sm text-navy outline-none focus:border-peach transition-colors">
+        <select id="levelupName" class="w-full border border-border rounded-xl px-4 py-2 text-sm text-navy outline-none focus:border-peach transition-colors bg-white">
+          <option value="">選択してください</option>
+        </select>
       </div>
+      <!-- 申請レベル -->
       <div>
         <label class="text-xs font-bold text-navy/60 mb-1 block">申請するレベル</label>
-        <select id="levelupTarget" class="w-full border border-border rounded-xl px-4 py-2 text-sm text-navy outline-none focus:border-peach transition-colors bg-white">
+        <select id="levelupTarget" onchange="renderChecklist()" class="w-full border border-border rounded-xl px-4 py-2 text-sm text-navy outline-none focus:border-peach transition-colors bg-white">
           <option value="2">レベル２</option>
           <option value="3">レベル３</option>
         </select>
       </div>
-      <div class="bg-muted rounded-xl px-4 py-3 text-xs text-navy/60">
-        申請後、管理者（高木）に通知が届きます。承認されるとレベルが更新されます。
-      </div>
+      <!-- チェックリスト -->
+      <div id="levelupChecklist" class="space-y-2"></div>
     </div>
-    <button onclick="submitLevelup()" class="mt-4 w-full bg-navy text-white font-extrabold py-3 rounded-xl hover:bg-blue-900 active:scale-95 transition-all text-sm">
+    <div class="bg-muted rounded-xl px-4 py-3 text-xs text-navy/60 mt-4">
+      申請後、管理者（高木）にTelegramで通知が届きます。承認されると自動でレベルが更新されます。
+    </div>
+    <button onclick="submitLevelup()" id="levelupSubmitBtn" class="mt-4 w-full bg-navy text-white font-extrabold py-3 rounded-xl hover:bg-blue-900 active:scale-95 transition-all text-sm">
       ⬆️ 申請する
     </button>
   </div>
@@ -380,6 +386,18 @@ async function loadDashboard() {
     if (data.status !== 'ok') return;
 
     const total = data.totalMembers;
+
+    // メンバーリストをグローバルに保存（申請モーダルのプルダウン用）
+    if (data.members) {
+      window._members = data.members;
+      const sel = document.getElementById('levelupName');
+      sel.innerHTML = '<option value="">選択してください</option>';
+      data.members.forEach(name => {
+        const opt = document.createElement('option');
+        opt.value = name; opt.textContent = name;
+        sel.appendChild(opt);
+      });
+    }
 
     // AI進捗グリッド
     const tools = ['ai', 'gws', 'canva', 'gs'];
@@ -482,22 +500,65 @@ function handleChallenge() {
   }, 3000);
 }
 
-// ── 次のレベルへボタン ──────────────────────────────
-function handleNextLevel() {
-  const btn = document.getElementById('nextLevelBtn');
-  btn.disabled = true;
-  btn.textContent = '📩 申請しました';
-  btn.classList.replace('bg-navy', 'bg-gray-400');
-  showToast('レベルアップ申請を送りました ⬆️');
-
-  fetch(`${API_URL}?action=levelup&name=&product=AI基礎`).catch(() => {});
-
-  setTimeout(() => {
-    btn.disabled = false;
-    btn.textContent = '⬆️ 次のレベルへ';
-    btn.classList.replace('bg-gray-400', 'bg-navy');
-  }, 5000);
-}
+// ── チェックリスト定義（定義書ベース） ──────────────────
+const CHECKLIST_DEF = {
+  ai: {
+    2: [
+      { label: 'AI基礎クイズを2日連続70点以上で合格した', file: true, fileLabel: '合格スクリーンショット（2日分）' },
+      { label: 'GWS・Canva・Gensparkをそれぞれ1回以上使った記録を提出できる', file: false },
+      { label: '自分の業務フローにAIを組み込んだ箇所を1か所以上言語化できる', file: false, text: true, textLabel: '言語化した内容を記入してください' },
+      { label: '4週間の毎日使用ログを提出できる（ポータルの挑戦ボタン記録 or スクショ）', file: true, fileLabel: '使用ログ（スクリーンショット等）' },
+      { label: 'AIを使って作成した業務資料・スライド・提案書 or Before/After記録を提出できる', file: true, fileLabel: '成果物ファイル' },
+    ],
+    3: [
+      { label: 'お茶の間ロープレを実施した（AIを自然に提案する場面）', file: false },
+      { label: 'L&W または 商店主 でAI関連の提案を2件以上、2か月継続した', file: true, fileLabel: '提案記録（2件分）' },
+      { label: 'AI活用が組み込まれたL&W / 商店主のケースを1件以上提出できる', file: true, fileLabel: '事例ファイル' },
+    ]
+  },
+  gws: {
+    2: [
+      { label: 'GWSリテラシークイズに合格した', file: true, fileLabel: '合格スクリーンショット' },
+      { label: 'Geminiに業務関連の質問を5回以上した記録がある', file: true, fileLabel: '使用記録（スクリーンショット等）' },
+      { label: 'お茶の間ロープレを実施した（事前準備ありの提案場面）', file: false },
+      { label: 'L&W/商店主でGWS関連の提案を2件以上実施した', file: false },
+      { label: '準備した提案をお客様に届けた記録を1件以上提出できる', file: true, fileLabel: '提案記録（提案内容＋お客様の反応）' },
+    ],
+    3: [
+      { label: 'お茶の間ロープレを実施した（準備なし・即興の提案場面）', file: false },
+      { label: 'L&W/商店主でGWS提案を月4件以上、3ヶ月継続した', file: true, fileLabel: '提案記録（3ヶ月分）' },
+      { label: 'GWS成功事例を3件以上Branch向けに共有済み', file: true, fileLabel: '事例共有の記録' },
+    ]
+  },
+  canva: {
+    2: [
+      { label: 'Canvaリテラシークイズに合格した', file: true, fileLabel: '合格スクリーンショット' },
+      { label: 'Canvaで制作物を3つ以上作成した', file: true, fileLabel: '制作物（画像ファイル等）' },
+      { label: 'お茶の間ロープレを実施した（事前準備ありの提案場面）', file: false },
+      { label: 'L&W/商店主でCanva関連の提案を2件以上実施した', file: false },
+      { label: 'お客様と一緒に制作物を完成させた記録を1件以上提出できる', file: true, fileLabel: '制作記録・完成物' },
+    ],
+    3: [
+      { label: 'お茶の間ロープレを実施した（準備なし・即興の提案場面）', file: false },
+      { label: 'L&W/商店主でCanva提案を月4件以上、3ヶ月継続した', file: true, fileLabel: '提案記録（3ヶ月分）' },
+      { label: 'Canva成功事例を3件以上、うち1件以上Branch向けに共有済み', file: true, fileLabel: '事例・共有記録' },
+    ]
+  },
+  gs: {
+    2: [
+      { label: 'Gensparkリテラシークイズに合格した', file: true, fileLabel: '合格スクリーンショット' },
+      { label: '業務の調べ物でGensparkを5回以上使った記録がある', file: true, fileLabel: '使用記録（スクリーンショット等）' },
+      { label: 'お茶の間ロープレを実施した（事前準備ありの提案場面）', file: false },
+      { label: 'L&W/商店主でGenspark関連の提案を2件以上実施した', file: false },
+      { label: 'Gensparkを使ってお客様の疑問や課題を解決した記録を1件以上提出できる', file: true, fileLabel: '解決事例の記録' },
+    ],
+    3: [
+      { label: 'お茶の間ロープレを実施した（準備なし・即興の提案場面）', file: false },
+      { label: 'L&W/商店主でGenspark提案を月3件以上、3ヶ月継続した', file: true, fileLabel: '提案記録（3ヶ月分）' },
+      { label: 'Genspark成功事例を3件以上Branch向けに共有済み', file: true, fileLabel: '事例共有の記録' },
+    ]
+  }
+};
 
 // ── レベルアップ申請モーダル ──────────────────────────────
 let levelupTool = '';
@@ -505,8 +566,18 @@ let levelupTool = '';
 function openLevelupModal(tool, label) {
   levelupTool = tool;
   document.getElementById('levelupTitle').textContent = label + ' レベルアップ申請';
-  document.getElementById('levelupName').value = '';
+  // メンバーリストをプルダウンに反映（loadDashboardで取得済み）
+  const sel = document.getElementById('levelupName');
+  if (sel.options.length <= 1 && window._members) {
+    window._members.forEach(name => {
+      const opt = document.createElement('option');
+      opt.value = name; opt.textContent = name;
+      sel.appendChild(opt);
+    });
+  }
+  sel.value = '';
   document.getElementById('levelupTarget').value = '2';
+  renderChecklist();
   document.getElementById('levelupModal').classList.remove('hidden');
 }
 
@@ -518,20 +589,84 @@ function handleLevelupBackdrop(e) {
   if (e.target === document.getElementById('levelupModal')) closeLevelupModal();
 }
 
-async function submitLevelup() {
-  const name = document.getElementById('levelupName').value.trim();
-  const targetLevel = document.getElementById('levelupTarget').value;
-  if (!name) { showToast('名前を入力してください'); return; }
+function renderChecklist() {
+  const level = parseInt(document.getElementById('levelupTarget').value);
+  const items = (CHECKLIST_DEF[levelupTool] || {})[level] || [];
+  const container = document.getElementById('levelupChecklist');
+  container.innerHTML = '<p class="text-xs font-bold text-navy/60 mb-2">認定基準チェックリスト</p>';
+  items.forEach((item, i) => {
+    const id = 'chk_' + i;
+    let html = `<div class="bg-muted rounded-xl p-3 space-y-2">
+      <label class="flex gap-2 items-start cursor-pointer">
+        <input type="checkbox" id="${id}" class="mt-0.5 shrink-0 accent-peach">
+        <span class="text-xs text-navy">${item.label}</span>
+      </label>`;
+    if (item.text) {
+      html += `<textarea id="txt_${i}" rows="2" placeholder="${item.textLabel}" class="w-full border border-border rounded-lg px-3 py-1.5 text-xs text-navy outline-none focus:border-peach resize-none"></textarea>`;
+    }
+    if (item.file) {
+      html += `<div>
+        <label class="text-xs text-navy/50 mb-1 block">📎 ${item.fileLabel}</label>
+        <input type="file" id="file_${i}" class="text-xs text-navy/70 w-full">
+      </div>`;
+    }
+    html += '</div>';
+    container.insertAdjacentHTML('beforeend', html);
+  });
+}
 
-  const btn = document.querySelector('#levelupModal button:last-child');
+async function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => resolve(e.target.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function submitLevelup() {
+  const name = document.getElementById('levelupName').value;
+  if (!name) { showToast('名前を選択してください'); return; }
+
+  const level = parseInt(document.getElementById('levelupTarget').value);
+  const items = (CHECKLIST_DEF[levelupTool] || {})[level] || [];
+
+  // チェックリスト収集
+  const checklist = items.map((item, i) => ({
+    label: item.label,
+    checked: document.getElementById('chk_' + i)?.checked || false,
+    text: item.text ? (document.getElementById('txt_' + i)?.value || '') : undefined
+  }));
+
+  // ファイル収集（base64変換）
+  const files = [];
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].file) {
+      const fileInput = document.getElementById('file_' + i);
+      if (fileInput?.files[0]) {
+        const data = await fileToBase64(fileInput.files[0]);
+        files.push({ name: fileInput.files[0].name, type: fileInput.files[0].type, data });
+      }
+    }
+  }
+
+  const btn = document.getElementById('levelupSubmitBtn');
   btn.disabled = true;
   btn.textContent = '送信中…';
 
   try {
-    const params = new URLSearchParams({ action: 'levelup', name, tool: levelupTool, targetLevel });
-    await fetch(API_URL + '?' + params.toString());
-    closeLevelupModal();
-    showToast('申請しました！管理者に通知が届きます ⬆️');
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'levelup_apply', name, tool: levelupTool, targetLevel: level, checklist, files })
+    });
+    const data = await res.json();
+    if (data.status === 'ok') {
+      closeLevelupModal();
+      showToast('申請しました！管理者に通知が届きます ⬆️');
+    } else {
+      showToast('エラー: ' + (data.error || '送信失敗'));
+    }
   } catch (e) {
     showToast('送信エラー。再度お試しください');
   } finally {
