@@ -183,11 +183,11 @@
     </div>
   </div>
 
-  <!-- Row 3: 部門長より + 委員間の共有事項 + AI100本ノック -->
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+  <!-- Row 3: 部門長より（横長）+ 委員間の共有事項 + AI100本ノック -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
 
-    <!-- 部門長より -->
-    <div class="bg-navy text-white rounded-2xl p-5 flex flex-col gap-4">
+    <!-- 部門長より（横長） -->
+    <div class="lg:col-span-6 bg-navy text-white rounded-2xl p-5 flex flex-col gap-4">
       <p class="text-xs font-bold text-white/50 uppercase tracking-widest">部門長より</p>
       <p class="text-sm leading-relaxed flex-1" id="deptMsg">
         （メッセージは管理者が更新します）
@@ -196,7 +196,7 @@
     </div>
 
     <!-- 委員間の共有事項 -->
-    <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
+    <div class="lg:col-span-3 bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
       <div class="flex items-center justify-between mb-4">
         <p class="text-base font-extrabold text-navy">委員間の共有事項</p>
         <button onclick="openModal('shared')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ 投稿する</button>
@@ -227,7 +227,7 @@
     </div>
 
     <!-- AI100本ノック -->
-    <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col gap-4">
+    <div class="lg:col-span-3 bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col gap-4">
       <div>
         <p class="text-base font-extrabold text-navy mb-1">AI 100本ノック</p>
         <div class="flex items-end gap-2">
@@ -265,7 +265,45 @@
 
   </div>
 
-  <!-- Row 4: 掲示板（全幅） -->
+  <!-- Row 4: ツール別部門より -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+    <!-- Genspark部門より -->
+    <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
+      <div class="flex items-center justify-between mb-4">
+        <p class="text-base font-extrabold text-navy">Genspark部門より</p>
+        <button onclick="openToolComment('genspark')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ コメント追加</button>
+      </div>
+      <div class="space-y-2 flex-1 overflow-y-auto max-h-48" id="gensparkBoard">
+        <p class="text-sm text-navy/40 text-center py-4">コメントはまだありません</p>
+      </div>
+    </div>
+
+    <!-- GWSより -->
+    <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
+      <div class="flex items-center justify-between mb-4">
+        <p class="text-base font-extrabold text-navy">GWSより</p>
+        <button onclick="openToolComment('gws')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ コメント追加</button>
+      </div>
+      <div class="space-y-2 flex-1 overflow-y-auto max-h-48" id="gwsBoard">
+        <p class="text-sm text-navy/40 text-center py-4">コメントはまだありません</p>
+      </div>
+    </div>
+
+    <!-- Canvaより -->
+    <div class="bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
+      <div class="flex items-center justify-between mb-4">
+        <p class="text-base font-extrabold text-navy">Canvaより</p>
+        <button onclick="openToolComment('canva')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ コメント追加</button>
+      </div>
+      <div class="space-y-2 flex-1 overflow-y-auto max-h-48" id="canvaBoard">
+        <p class="text-sm text-navy/40 text-center py-4">コメントはまだありません</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Row 5: 掲示板（全幅） -->
   <div class="bg-white rounded-2xl p-5 border border-border shadow-sm">
     <div class="flex items-center justify-between mb-4">
       <p class="text-base font-extrabold text-navy">掲示板</p>
@@ -468,6 +506,15 @@ function openModal(type) {
   document.getElementById('postModal').classList.remove('hidden');
 }
 
+function openToolComment(tool) {
+  const labels = { genspark: 'Genspark部門より', gws: 'GWSより', canva: 'Canvaより' };
+  currentModalType = 'tool_' + tool;
+  document.getElementById('modalTitle').textContent = labels[tool] + ' にコメントを追加';
+  document.getElementById('postName').value = '';
+  document.getElementById('postContent').value = '';
+  document.getElementById('postModal').classList.remove('hidden');
+}
+
 function closeModal() {
   document.getElementById('postModal').classList.add('hidden');
 }
@@ -484,7 +531,26 @@ function submitPost() {
     return;
   }
   closeModal();
-  showToast('投稿しました！（GAS連携後に反映されます）');
+
+  // ツール別コメントの場合はボードにその場で表示
+  if (currentModalType.startsWith('tool_')) {
+    const tool = currentModalType.replace('tool_', '');
+    const boardId = { genspark: 'gensparkBoard', gws: 'gwsBoard', canva: 'canvaBoard' }[tool];
+    const board = document.getElementById(boardId);
+    const emptyMsg = board.querySelector('p.text-navy\\/40');
+    if (emptyMsg) emptyMsg.remove();
+    const today = new Date().toLocaleDateString('ja-JP');
+    board.insertAdjacentHTML('afterbegin', `
+      <div class="bg-muted rounded-xl p-3">
+        <div class="flex justify-between items-start mb-1">
+          <span class="text-xs font-bold text-navy">${name}</span>
+          <span class="text-xs text-navy/40">${today}</span>
+        </div>
+        <p class="text-sm text-navy/80">${content}</p>
+      </div>`);
+  }
+
+  showToast('投稿しました！（GAS連携後に永続化されます）');
   // TODO: GAS連携後にスプレッドシートへ投稿
 }
 
