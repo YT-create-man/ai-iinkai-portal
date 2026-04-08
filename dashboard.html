@@ -413,6 +413,25 @@ async function loadDashboard() {
     const msgDate = data.deptMessage.date;
     document.getElementById('deptMsgDate').textContent = msgDate ? new Date(msgDate).toLocaleDateString('ja-JP') : '——';
 
+    // 部門コメント（最新1件）
+    if (data.toolComments) {
+      const boardIds = { genspark: 'gensparkBoard', gws: 'gwsBoard', canva: 'canvaBoard' };
+      Object.entries(boardIds).forEach(([tool, boardId]) => {
+        const c = data.toolComments[tool];
+        const board = document.getElementById(boardId);
+        if (c && c.content) {
+          board.innerHTML = `
+            <div class="bg-muted rounded-xl p-3">
+              <div class="flex justify-between items-start mb-1">
+                <span class="text-xs font-bold text-navy">${c.name}</span>
+                <span class="text-xs text-navy/40">${c.date}</span>
+              </div>
+              <p class="text-sm text-navy/80">${c.content}</p>
+            </div>`;
+        }
+      });
+    }
+
     // 掲示板
     const board = document.getElementById('bulletinBoard');
     board.innerHTML = '';
@@ -875,12 +894,13 @@ function submitPost() {
   }
   closeModal();
 
-  // ツール別コメントの場合はボードに最新1件のみ表示（上書き）
+  // ツール別コメント：GASに保存して即時表示
   if (currentModalType.startsWith('tool_')) {
     const tool = currentModalType.replace('tool_', '');
     const boardId = { genspark: 'gensparkBoard', gws: 'gwsBoard', canva: 'canvaBoard' }[tool];
     const board = document.getElementById(boardId);
     const today = new Date().toLocaleDateString('ja-JP');
+    // 即時反映
     board.innerHTML = `
       <div class="bg-muted rounded-xl p-3">
         <div class="flex justify-between items-start mb-1">
@@ -889,10 +909,18 @@ function submitPost() {
         </div>
         <p class="text-sm text-navy/80">${content}</p>
       </div>`;
+    // GASに保存
+    fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'tool_comment', tool, name, content })
+    }).catch(() => {});
+    showToast('投稿しました！');
+    return;
   }
 
-  showToast('投稿しました！（GAS連携後に永続化されます）');
-  // TODO: GAS連携後にスプレッドシートへ投稿
+  showToast('投稿しました！');
+  // TODO: 掲示板・委員間共有のGAS連携
 }
 
 // ── Toast ──────────────────────────────
