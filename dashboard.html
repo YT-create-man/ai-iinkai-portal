@@ -196,19 +196,19 @@
     </div>
 
     <!-- 掲示板 -->
-    <div class="lg:col-span-6 bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
-      <p class="text-base font-extrabold text-navy mb-4">掲示板 / 委員間の共有事項</p>
-
+    <div class="lg:col-span-3 bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
+      <div class="flex items-center justify-between mb-4">
+        <p class="text-base font-extrabold text-navy">掲示板</p>
+        <button onclick="openModal('bulletin')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ 投稿する</button>
+      </div>
       <div class="space-y-3 flex-1 overflow-y-auto max-h-72" id="bulletinBoard">
-
-        <!-- Post テンプレート（JSで動的追加） -->
         <div class="bg-muted rounded-xl p-4">
           <div class="flex justify-between items-start mb-1">
             <span class="text-xs font-bold text-navy">サンプル投稿</span>
             <span class="text-xs text-navy/40">2026-04-01</span>
           </div>
-          <p class="text-sm text-navy/80 mb-3">ここに共有事項が表示されます。GAS連携後にスプレッドシートから自動取得します。</p>
-          <div class="flex gap-2 flex-wrap" data-post-id="sample">
+          <p class="text-sm text-navy/80 mb-3">GAS連携後にスプレッドシートから自動取得します。</p>
+          <div class="flex gap-2 flex-wrap" data-post-id="sample-bulletin">
             <button onclick="react(this,'👍')" class="reaction-btn flex items-center gap-1 text-xs bg-muted border border-border rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">
               <span>👍</span><span class="count">0</span>
             </button>
@@ -223,7 +223,37 @@
             </button>
           </div>
         </div>
+      </div>
+    </div>
 
+    <!-- 委員間の共有事項 -->
+    <div class="lg:col-span-3 bg-white rounded-2xl p-5 border border-border shadow-sm flex flex-col">
+      <div class="flex items-center justify-between mb-4">
+        <p class="text-base font-extrabold text-navy">委員間の共有事項</p>
+        <button onclick="openModal('shared')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ 投稿する</button>
+      </div>
+      <div class="space-y-3 flex-1 overflow-y-auto max-h-72" id="sharedBoard">
+        <div class="bg-muted rounded-xl p-4">
+          <div class="flex justify-between items-start mb-1">
+            <span class="text-xs font-bold text-navy">サンプル共有事項</span>
+            <span class="text-xs text-navy/40">2026-04-01</span>
+          </div>
+          <p class="text-sm text-navy/80 mb-3">委員間で共有したい情報・連絡事項を掲載します。</p>
+          <div class="flex gap-2 flex-wrap" data-post-id="sample-shared">
+            <button onclick="react(this,'👍')" class="reaction-btn flex items-center gap-1 text-xs bg-muted border border-border rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">
+              <span>👍</span><span class="count">0</span>
+            </button>
+            <button onclick="react(this,'💡')" class="reaction-btn flex items-center gap-1 text-xs bg-muted border border-border rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">
+              <span>💡</span><span class="count">0</span>
+            </button>
+            <button onclick="react(this,'🔥')" class="reaction-btn flex items-center gap-1 text-xs bg-muted border border-border rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">
+              <span>🔥</span><span class="count">0</span>
+            </button>
+            <button onclick="react(this,'🙌')" class="reaction-btn flex items-center gap-1 text-xs bg-muted border border-border rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">
+              <span>🙌</span><span class="count">0</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -266,6 +296,29 @@
 
   </div>
 </main>
+
+<!-- 投稿モーダル -->
+<div id="postModal" class="fixed inset-0 bg-navy/40 z-50 flex items-center justify-center hidden" onclick="handleModalBackdrop(event)">
+  <div class="bg-white rounded-2xl p-6 w-full max-w-md mx-4 shadow-xl">
+    <div class="flex items-center justify-between mb-4">
+      <p class="text-base font-extrabold text-navy" id="modalTitle">投稿する</p>
+      <button onclick="closeModal()" class="text-navy/40 hover:text-navy text-xl leading-none">✕</button>
+    </div>
+    <div class="space-y-3">
+      <div>
+        <label class="text-xs font-bold text-navy/60 mb-1 block">名前</label>
+        <input id="postName" type="text" placeholder="あなたの名前" class="w-full border border-border rounded-xl px-4 py-2 text-sm text-navy outline-none focus:border-peach transition-colors">
+      </div>
+      <div>
+        <label class="text-xs font-bold text-navy/60 mb-1 block">内容</label>
+        <textarea id="postContent" rows="4" placeholder="共有したいことを入力してください" class="w-full border border-border rounded-xl px-4 py-2 text-sm text-navy outline-none focus:border-peach transition-colors resize-none"></textarea>
+      </div>
+    </div>
+    <button onclick="submitPost()" class="mt-4 w-full bg-peach text-white font-extrabold py-3 rounded-xl hover:bg-orange-500 active:scale-95 transition-all text-sm">
+      投稿する
+    </button>
+  </div>
+</div>
 
 <!-- Toast通知 -->
 <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-navy text-white text-sm font-bold px-6 py-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none z-50">
@@ -400,6 +453,38 @@ function handleNextLevel() {
     btn.textContent = '⬆️ 次のレベルへ';
     btn.classList.replace('bg-gray-400', 'bg-navy');
   }, 5000);
+}
+
+// ── 投稿モーダル ──────────────────────────────
+let currentModalType = '';
+
+function openModal(type) {
+  currentModalType = type;
+  const title = document.getElementById('modalTitle');
+  title.textContent = type === 'bulletin' ? '掲示板に投稿する' : '委員間の共有事項に投稿する';
+  document.getElementById('postName').value = '';
+  document.getElementById('postContent').value = '';
+  document.getElementById('postModal').classList.remove('hidden');
+}
+
+function closeModal() {
+  document.getElementById('postModal').classList.add('hidden');
+}
+
+function handleModalBackdrop(e) {
+  if (e.target === document.getElementById('postModal')) closeModal();
+}
+
+function submitPost() {
+  const name = document.getElementById('postName').value.trim();
+  const content = document.getElementById('postContent').value.trim();
+  if (!name || !content) {
+    showToast('名前と内容を入力してください');
+    return;
+  }
+  closeModal();
+  showToast('投稿しました！（GAS連携後に反映されます）');
+  // TODO: GAS連携後にスプレッドシートへ投稿
 }
 
 // ── Toast ──────────────────────────────
