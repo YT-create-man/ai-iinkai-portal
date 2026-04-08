@@ -85,7 +85,7 @@
   <div class="bg-white rounded-2xl p-5 border border-border shadow-sm">
     <div class="flex items-center justify-between mb-4">
       <p class="text-base font-extrabold text-navy">AI進捗状況</p>
-      <button onclick="openLevelupModal('ai','AI基礎')" id="sectionLevelupBtn" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-4 py-1.5 hover:bg-peach/10 transition-colors">⬆️ 次のレベルを申請する</button>
+      <button onclick="openLevelupModal()" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-4 py-1.5 hover:bg-peach/10 transition-colors">⬆️ 次のレベルを申請する</button>
     </div>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="aiProgressGrid">
 
@@ -292,7 +292,7 @@
     </div>
     <div class="overflow-y-auto flex-1 px-6 py-4 space-y-3 text-sm text-navy" id="reqContent"></div>
     <div class="px-6 pb-5 pt-3">
-      <button onclick="closeReq();openLevelupModal(window._reqTool, document.getElementById('reqTitle').textContent.replace(' レベルアップ要件書',''))"
+      <button onclick="closeReq();openLevelupModalWithTool(window._reqTool)"
         class="w-full bg-navy text-white font-extrabold py-3 rounded-xl hover:bg-blue-900 active:scale-95 transition-all text-sm">
         ⬆️ このツールで申請する
       </button>
@@ -308,6 +308,16 @@
       <button onclick="closeLevelupModal()" class="text-navy/40 hover:text-navy text-xl leading-none">✕</button>
     </div>
     <div class="space-y-4">
+      <!-- ツール選択 -->
+      <div>
+        <label class="text-xs font-bold text-navy/60 mb-1 block">ツール</label>
+        <select id="levelupToolSelect" onchange="onToolChange()" class="w-full border border-border rounded-xl px-4 py-2 text-sm text-navy outline-none focus:border-peach transition-colors bg-white">
+          <option value="ai">AI基礎</option>
+          <option value="gws">Google Workspace</option>
+          <option value="canva">Canva</option>
+          <option value="gs">Genspark</option>
+        </select>
+      </div>
       <!-- 名前（プルダウン） -->
       <div>
         <label class="text-xs font-bold text-navy/60 mb-1 block">名前</label>
@@ -699,11 +709,13 @@ const CHECKLIST_DEF = {
 };
 
 // ── レベルアップ申請モーダル ──────────────────────────────
-let levelupTool = '';
+let levelupTool = 'ai';
 
-function openLevelupModal(tool, label) {
-  levelupTool = tool;
-  document.getElementById('levelupTitle').textContent = label + ' レベルアップ申請';
+function openLevelupModal() {
+  const toolSel = document.getElementById('levelupToolSelect');
+  toolSel.value = 'ai';
+  levelupTool = 'ai';
+  document.getElementById('levelupTitle').textContent = 'レベルアップ申請';
   const sel = document.getElementById('levelupName');
   if (sel.options.length <= 1 && window._members) {
     window._members.forEach(name => {
@@ -718,6 +730,22 @@ function openLevelupModal(tool, label) {
   document.getElementById('levelupTarget').value = '2';
   renderChecklist();
   document.getElementById('levelupModal').classList.remove('hidden');
+}
+
+function openLevelupModalWithTool(tool) {
+  openLevelupModal();
+  document.getElementById('levelupToolSelect').value = tool;
+  onToolChange();
+}
+
+function onToolChange() {
+  const toolMap = { ai: 'AI基礎', gws: 'Google Workspace', canva: 'Canva', gs: 'Genspark' };
+  levelupTool = document.getElementById('levelupToolSelect').value;
+  document.getElementById('levelupName').value = '';
+  document.getElementById('quizStatus').classList.add('hidden');
+  document.getElementById('quizStatus').innerHTML = '';
+  document.getElementById('levelupTarget').value = '2';
+  renderChecklist();
 }
 
 async function onNameChange() {
