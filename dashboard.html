@@ -112,6 +112,9 @@
           class="block w-full bg-green-600 text-white font-bold py-2 rounded-lg hover:bg-green-700 active:scale-95 transition-all text-xs text-center mt-3">
           📝 今日のクイズを受ける
         </a>
+        <button onclick="openLevelupModal('ai','AI基礎')" class="w-full bg-navy/10 text-navy font-bold py-2 rounded-lg hover:bg-navy/20 active:scale-95 transition-all text-xs mt-2">
+          ⬆️ 次のレベルを申請する
+        </button>
       </div>
 
       <!-- Google Workspace -->
@@ -134,6 +137,9 @@
           </div>
           <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="gws-3"></div></div>
         </div>
+        <button onclick="openLevelupModal('gws','Google Workspace')" class="w-full bg-navy/10 text-navy font-bold py-2 rounded-lg hover:bg-navy/20 active:scale-95 transition-all text-xs mt-3">
+          ⬆️ 次のレベルを申請する
+        </button>
       </div>
 
       <!-- Canva -->
@@ -156,6 +162,9 @@
           </div>
           <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="canva-3"></div></div>
         </div>
+        <button onclick="openLevelupModal('canva','Canva')" class="w-full bg-navy/10 text-navy font-bold py-2 rounded-lg hover:bg-navy/20 active:scale-95 transition-all text-xs mt-3">
+          ⬆️ 次のレベルを申請する
+        </button>
       </div>
 
       <!-- Genspark -->
@@ -178,6 +187,9 @@
           </div>
           <div class="level-bar"><div class="level-fill" style="width:0%" data-bar="gs-3"></div></div>
         </div>
+        <button onclick="openLevelupModal('gs','Genspark')" class="w-full bg-navy/10 text-navy font-bold py-2 rounded-lg hover:bg-navy/20 active:scale-95 transition-all text-xs mt-3">
+          ⬆️ 次のレベルを申請する
+        </button>
       </div>
 
     </div>
@@ -299,6 +311,35 @@
   </div>
 
 </main>
+
+<!-- レベルアップ申請モーダル -->
+<div id="levelupModal" class="fixed inset-0 bg-navy/40 z-50 flex items-center justify-center hidden" onclick="handleLevelupBackdrop(event)">
+  <div class="bg-white rounded-2xl p-6 w-full max-w-md mx-4 shadow-xl">
+    <div class="flex items-center justify-between mb-4">
+      <p class="text-base font-extrabold text-navy" id="levelupTitle">レベルアップ申請</p>
+      <button onclick="closeLevelupModal()" class="text-navy/40 hover:text-navy text-xl leading-none">✕</button>
+    </div>
+    <div class="space-y-3">
+      <div>
+        <label class="text-xs font-bold text-navy/60 mb-1 block">名前</label>
+        <input id="levelupName" type="text" placeholder="あなたの名前" class="w-full border border-border rounded-xl px-4 py-2 text-sm text-navy outline-none focus:border-peach transition-colors">
+      </div>
+      <div>
+        <label class="text-xs font-bold text-navy/60 mb-1 block">申請するレベル</label>
+        <select id="levelupTarget" class="w-full border border-border rounded-xl px-4 py-2 text-sm text-navy outline-none focus:border-peach transition-colors bg-white">
+          <option value="2">レベル２</option>
+          <option value="3">レベル３</option>
+        </select>
+      </div>
+      <div class="bg-muted rounded-xl px-4 py-3 text-xs text-navy/60">
+        申請後、管理者（高木）に通知が届きます。承認されるとレベルが更新されます。
+      </div>
+    </div>
+    <button onclick="submitLevelup()" class="mt-4 w-full bg-navy text-white font-extrabold py-3 rounded-xl hover:bg-blue-900 active:scale-95 transition-all text-sm">
+      ⬆️ 申請する
+    </button>
+  </div>
+</div>
 
 <!-- 投稿モーダル -->
 <div id="postModal" class="fixed inset-0 bg-navy/40 z-50 flex items-center justify-center hidden" onclick="handleModalBackdrop(event)">
@@ -456,6 +497,47 @@ function handleNextLevel() {
     btn.textContent = '⬆️ 次のレベルへ';
     btn.classList.replace('bg-gray-400', 'bg-navy');
   }, 5000);
+}
+
+// ── レベルアップ申請モーダル ──────────────────────────────
+let levelupTool = '';
+
+function openLevelupModal(tool, label) {
+  levelupTool = tool;
+  document.getElementById('levelupTitle').textContent = label + ' レベルアップ申請';
+  document.getElementById('levelupName').value = '';
+  document.getElementById('levelupTarget').value = '2';
+  document.getElementById('levelupModal').classList.remove('hidden');
+}
+
+function closeLevelupModal() {
+  document.getElementById('levelupModal').classList.add('hidden');
+}
+
+function handleLevelupBackdrop(e) {
+  if (e.target === document.getElementById('levelupModal')) closeLevelupModal();
+}
+
+async function submitLevelup() {
+  const name = document.getElementById('levelupName').value.trim();
+  const targetLevel = document.getElementById('levelupTarget').value;
+  if (!name) { showToast('名前を入力してください'); return; }
+
+  const btn = document.querySelector('#levelupModal button:last-child');
+  btn.disabled = true;
+  btn.textContent = '送信中…';
+
+  try {
+    const params = new URLSearchParams({ action: 'levelup', name, tool: levelupTool, targetLevel });
+    await fetch(API_URL + '?' + params.toString());
+    closeLevelupModal();
+    showToast('申請しました！管理者に通知が届きます ⬆️');
+  } catch (e) {
+    showToast('送信エラー。再度お試しください');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '⬆️ 申請する';
+  }
 }
 
 // ── 投稿モーダル ──────────────────────────────
