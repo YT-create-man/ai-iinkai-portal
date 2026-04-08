@@ -184,7 +184,7 @@
             <p class="text-base font-extrabold text-navy">Genspark部門より</p>
             <button onclick="openToolComment('genspark')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ コメント追加</button>
           </div>
-          <div class="space-y-2 flex-1 overflow-y-auto max-h-48" id="gensparkBoard">
+          <div class="flex-1" id="gensparkBoard">
             <p class="text-sm text-navy/40 text-center py-4">コメントはまだありません</p>
           </div>
         </div>
@@ -195,7 +195,7 @@
             <p class="text-base font-extrabold text-navy">GWS部門より</p>
             <button onclick="openToolComment('gws')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ コメント追加</button>
           </div>
-          <div class="space-y-2 flex-1 overflow-y-auto max-h-48" id="gwsBoard">
+          <div class="flex-1" id="gwsBoard">
             <p class="text-sm text-navy/40 text-center py-4">コメントはまだありません</p>
           </div>
         </div>
@@ -206,7 +206,7 @@
             <p class="text-base font-extrabold text-navy">Canva部門より</p>
             <button onclick="openToolComment('canva')" class="text-xs font-bold text-peach border border-peach/40 rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">＋ コメント追加</button>
           </div>
-          <div class="space-y-2 flex-1 overflow-y-auto max-h-48" id="canvaBoard">
+          <div class="flex-1" id="canvaBoard">
             <p class="text-sm text-navy/40 text-center py-4">コメントはまだありません</p>
           </div>
         </div>
@@ -875,22 +875,20 @@ function submitPost() {
   }
   closeModal();
 
-  // ツール別コメントの場合はボードにその場で表示
+  // ツール別コメントの場合はボードに最新1件のみ表示（上書き）
   if (currentModalType.startsWith('tool_')) {
     const tool = currentModalType.replace('tool_', '');
     const boardId = { genspark: 'gensparkBoard', gws: 'gwsBoard', canva: 'canvaBoard' }[tool];
     const board = document.getElementById(boardId);
-    const emptyMsg = board.querySelector('p.text-navy\\/40');
-    if (emptyMsg) emptyMsg.remove();
     const today = new Date().toLocaleDateString('ja-JP');
-    board.insertAdjacentHTML('afterbegin', `
+    board.innerHTML = `
       <div class="bg-muted rounded-xl p-3">
         <div class="flex justify-between items-start mb-1">
           <span class="text-xs font-bold text-navy">${name}</span>
           <span class="text-xs text-navy/40">${today}</span>
         </div>
         <p class="text-sm text-navy/80">${content}</p>
-      </div>`);
+      </div>`;
   }
 
   showToast('投稿しました！（GAS連携後に永続化されます）');
