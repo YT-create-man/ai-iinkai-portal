@@ -231,14 +231,13 @@
         挑戦した数だけ力になる。毎日1本、続けていこう。
       </p>
 
-      <!-- 挑戦するボタン（100本ノックリストへ） -->
-      <a
-        href="https://yt-create-man.github.io/knock-rally/"
-        target="_blank"
+      <!-- 挑戦するボタン -->
+      <button
+        onclick="openKnockModal()"
         id="challengeBtn"
         class="block w-full bg-peach text-white font-extrabold py-3 rounded-xl hover:bg-orange-500 active:scale-95 transition-all shadow-sm text-sm text-center">
         🔥 挑戦する
-      </a>
+      </button>
 
     </div>
 
@@ -350,6 +349,27 @@
 </div>
 
 <!-- 投稿モーダル -->
+<!-- ノックモーダル -->
+<div id="knockModal" class="fixed inset-0 bg-navy/40 z-50 flex items-center justify-center hidden" onclick="if(event.target===this)closeKnockModal()">
+  <div class="bg-white rounded-2xl p-6 w-full max-w-sm mx-4 shadow-xl">
+    <div class="flex items-center justify-between mb-4">
+      <p class="text-base font-extrabold text-navy">🔥 今日の挑戦を記録する</p>
+      <button onclick="closeKnockModal()" class="text-navy/40 hover:text-navy text-xl leading-none">✕</button>
+    </div>
+    <div class="space-y-4">
+      <div>
+        <label class="text-xs font-bold text-navy/60 mb-1 block">名前</label>
+        <select id="knockName" class="w-full border border-border rounded-xl px-4 py-2 text-sm text-navy outline-none focus:border-peach transition-colors bg-white">
+          <option value="">選択してください</option>
+        </select>
+      </div>
+    </div>
+    <button onclick="submitKnock()" class="mt-5 w-full bg-peach text-white font-extrabold py-3 rounded-xl hover:bg-orange-500 active:scale-95 transition-all text-sm">
+      🔥 挑戦を記録してノックへ
+    </button>
+  </div>
+</div>
+
 <div id="postModal" class="fixed inset-0 bg-navy/40 z-50 flex items-center justify-center hidden" onclick="handleModalBackdrop(event)">
   <div class="bg-white rounded-2xl p-6 w-full max-w-md mx-4 shadow-xl">
     <div class="flex items-center justify-between mb-4">
@@ -504,21 +524,41 @@ function react(btn, emojiKey, postId) {
   fetch(`${API_URL}?action=react&postId=${encodeURIComponent(postId)}&emoji=${emojiKey}&delta=${delta}`).catch(() => {});
 }
 
-// ── 挑戦するボタン ──────────────────────────────
-function handleChallenge() {
-  const btn = document.getElementById('challengeBtn');
-  btn.disabled = true;
-  btn.textContent = '✅ 記録しました！';
-  btn.classList.replace('bg-peach', 'bg-green-500');
+// ── 100本ノック ──────────────────────────────
+function openKnockModal() {
+  const sel = document.getElementById('knockName');
+  if (sel.options.length <= 1 && window._members) {
+    window._members.forEach(name => {
+      const opt = document.createElement('option');
+      opt.value = name; opt.textContent = name;
+      sel.appendChild(opt);
+    });
+  }
+  sel.value = '';
+  document.getElementById('knockModal').classList.remove('hidden');
+}
+
+function closeKnockModal() {
+  document.getElementById('knockModal').classList.add('hidden');
+}
+
+async function submitKnock() {
+  const name = document.getElementById('knockName').value;
+  if (!name) { showToast('名前を選択してください'); return; }
+  closeKnockModal();
   showToast('挑戦を記録しました 🔥');
-
-  fetch(`${API_URL}?action=challenge&name=&product=AI基礎`).catch(() => {});
-
-  setTimeout(() => {
-    btn.disabled = false;
-    btn.textContent = '🔥 挑戦する';
-    btn.classList.replace('bg-green-500', 'bg-peach');
-  }, 3000);
+  // GASに記録
+  fetch(`${API_URL}?action=challenge&name=${encodeURIComponent(name)}&product=AI基礎`)
+    .then(r => r.json())
+    .then(d => {
+      if (d.knockCount !== undefined) {
+        const current = parseInt(document.getElementById('knockCount').textContent) || 0;
+        document.getElementById('knockCount').textContent = current + 1;
+        document.getElementById('knockBar').style.width = Math.min(100, current + 1) + '%';
+      }
+    }).catch(() => {});
+  // knock-rallyを新しいタブで開く
+  window.open('https://yt-create-man.github.io/knock-rally/', '_blank');
 }
 
 // ── 要件書定義（定義書ベース） ────────────────────────────
