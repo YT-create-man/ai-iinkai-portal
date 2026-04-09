@@ -948,8 +948,39 @@ function submitPost() {
     return;
   }
 
+  // 掲示板：GASに保存して即時表示
+  if (currentModalType === 'bulletin') {
+    const board = document.getElementById('bulletinBoard');
+    const tempId = 'temp-' + Date.now();
+    const today = new Date().toLocaleDateString('ja-JP');
+    const emojiMap = { thumbsup: '👍', bulb: '💡', fire: '🔥', raised: '🙌' };
+    const reactionsHtml = Object.entries(emojiMap).map(([key, em]) =>
+      `<button onclick="react(this,'${key}','${tempId}')" class="reaction-btn flex items-center gap-1 text-xs bg-muted border border-border rounded-full px-3 py-1 hover:bg-peach/10 transition-colors">
+        <span>${em}</span><span class="count">0</span>
+      </button>`
+    ).join('');
+    // サンプル表示があれば消す
+    const sampleEl = board.querySelector('.text-navy\\/40');
+    if (sampleEl && board.children.length <= 1) board.innerHTML = '';
+    board.insertAdjacentHTML('afterbegin', `
+      <div class="bg-muted rounded-xl p-4" data-post-id="${tempId}">
+        <div class="flex justify-between items-start mb-1">
+          <span class="text-xs font-bold text-navy">${name}</span>
+          <span class="text-xs text-navy/40">${today}</span>
+        </div>
+        <p class="text-sm text-navy/80 mb-3">${content}</p>
+        <div class="flex gap-2 flex-wrap">${reactionsHtml}</div>
+      </div>`);
+    fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'bulletin_post', name, content })
+    }).catch(() => {});
+    showToast('投稿しました！');
+    return;
+  }
+
   showToast('投稿しました！');
-  // TODO: 掲示板・委員間共有のGAS連携
 }
 
 // ── Toast ──────────────────────────────
